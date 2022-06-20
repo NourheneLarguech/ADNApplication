@@ -1,0 +1,22 @@
+<form  name="deleteForm">
+    <div class="modal-header">
+        <h4 class="modal-title" data-cy="updateDeleteDialogHeading">Attention !!!</h4>
+
+        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <p id="jhi-delete-update-heading" >
+            Fichier mise à jour manquant sur serveur ADN      </p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">
+            &nbsp;<span>OK</span>
+        </button>
+
+
+    </div>
+</form>

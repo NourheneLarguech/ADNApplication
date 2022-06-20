@@ -1,0 +1,168 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-update-heading" data-cy="UpdateCreateUpdateHeading" jhiTranslate="adnApplicationApp.update.home.createOrEditLabel">
+        Create or edit a Update
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3">
+                    <label class="form-label" jhiTranslate="adnApplicationApp.update.uidUpdate" for="field_uidUpdate">Uid Update</label>
+                    <input type="text" class="form-control" name="uidUpdate" id="field_uidUpdate" data-cy="uidUpdate" formControlName="uidUpdate"  [readonly]="true" />
+                    <div *ngIf="editForm.get('uidUpdate')!.invalid && (editForm.get('uidUpdate')!.dirty || editForm.get('uidUpdate')!.touched)">
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('uidUpdate')?.errors?.required"
+                        jhiTranslate="entity.validation.required"
+                      >
+                        This field is required.
+                      </small>
+                    </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionName" for="field_versionName">Version Name</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  name="product"
+                 [(ngModel)]="productName"
+                  data-cy="product"
+                  formControlName="product"
+                  [readonly]="true"
+          />
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionName" for="field_versionName">Version Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="versionName"
+            id="field_versionName"
+            data-cy="versionName"
+            formControlName="versionName"
+            [readonly]="true"
+          />
+          <div *ngIf="editForm.get('versionName')!.invalid && (editForm.get('versionName')!.dirty || editForm.get('versionName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('versionName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment"  id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+
+
+
+
+
+          <div class="row mb-3">
+            <label class="form-label" jhiTranslate="adnApplicationApp.update.versionApplicable" >Version Applicable Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    name="versionApplicable"
+                    [(ngModel)]="versionApplicableName"
+                    data-cy="versionApplicable"
+                    formControlName="versionApplicable"
+                    [readonly]="true"
+            />
+          </div>
+
+          <div class="row mb-3">
+            <label class="form-label" jhiTranslate="adnApplicationApp.update.versionCible" >Version Cible </label>
+            <input
+                    type="text"
+                    class="form-control"
+                    name="versionApplicable"
+                    [(ngModel)]="versionCibleName"
+                    data-cy="versionCible"
+                    formControlName="versionCible"
+                    [readonly]="true"
+            />
+          </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.statut"
+          >Statut</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="statut"
+            [(ngModel)]="statut"
+            id="statut"
+            data-cy="statut"
+            formControlName="statut"
+            [readonly]="true"
+          />
+          <div
+            *ngIf="
+              editForm.get('statut')!.invalid &&
+              (editForm.get('statut')!.dirty || editForm.get('statut')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('statut')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+
+
+      </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+

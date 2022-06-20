@@ -1,0 +1,32 @@
+{
+  "adnApplicationApp": {
+    "versionCible": {
+      "home": {
+        "title": "Version Cibles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Version Cible",
+        "createOrEditLabel": "Create or edit a Version Cible",
+        "notFound": "No Version Cibles found"
+      },
+      "created": "A new Version Cible is created with identifier {{ param }}",
+      "updated": "A Version Cible is updated with identifier {{ param }}",
+      "deleted": "A Version Cible is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Version Cible {{ id }}?"
+      },
+      "detail": {
+        "title": "Version Cible"
+      },
+      "id": "ID",
+      "uidVersionCible": "Uid Version Cible",
+      "nameVersionCible": "Name Version Cible",
+      "comment": "Comment",
+      "description": "Description",
+      "createDate": "Create Date",
+      "modifyBy": "Modify By",
+      "modifidDate": "Modifid Date",
+      "update": "Update",
+      "product": "Product"
+    }
+  }
+}

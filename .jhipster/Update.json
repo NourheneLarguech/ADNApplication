@@ -1,0 +1,58 @@
+{
+  "applications": "*",
+  "changelogDate": "20220504140215",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "update",
+  "fields": [
+    {
+      "fieldName": "uidUpdate",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "versionName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "StatutList",
+      "fieldValues": "SUSPENDED,IN_TEST,FIELD_TEST,PUBLISHED"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Update",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "versionApplicable",
+      "otherEntityRelationshipName": "update",
+      "relationshipName": "versionApplicable",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "versionCible",
+      "otherEntityRelationshipName": "update",
+      "relationshipName": "versionCible",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "update",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

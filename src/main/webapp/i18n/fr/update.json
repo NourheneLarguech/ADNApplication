@@ -1,0 +1,37 @@
+{
+  "adnApplicationApp": {
+    "update": {
+      "home": {
+        "title": "Les packages",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Package",
+        "createOrEditLabel": "Créer un package",
+        "notFound": "Aucun Update trouvé",
+        "NomFiltrage": "Liste des produits"
+      },
+      "created": "Un nouveau Update a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Update avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Update avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Update {{ id }} ?"
+      },
+      "detail": {
+        "title": "Update"
+      },
+      "id": "ID",
+      "uidUpdate": "ID",
+      "versionName": "Numéro du Version",
+      "calculatorName": "Nom du produit",
+      "statut": "Statut",
+      "description": "Description",
+      "comment": "Comment",
+      "versionApplicable": "Version Applicable",
+      "versionCible": "Version Cible",
+      "product": "Product",
+      "ListProduit": "Liste des produits :",
+      "createBy": "Créé par",
+      "createDate": "Date de création"
+
+    }
+  }
+}

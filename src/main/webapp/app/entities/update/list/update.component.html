@@ -1,0 +1,162 @@
+<div class="row">
+<!--  Liste des Produit -->
+<div class="col-md-2 py-2">
+<h5 jhiTranslate="adnApplicationApp.update.ListProduit">Liste des calculateurs :</h5>
+  <ul class="side-menu">
+    <li *ngFor="let name of nameVersionList  ">
+      <label class="label-input">
+        {{name}}
+        <input  type="checkbox"
+                value={{name}}  (change)="toggleEditable($event)" checked>
+        <span class="checkmark"></span>
+      </label>
+    </li>
+  </ul>
+</div>
+
+  <div class="col-md-10">
+    <div    id="contenu">
+  <h2 id="page-heading" data-cy="UpdateHeading">
+
+    <span jhiTranslate="adnApplicationApp.update.home.title">ADN Products</span>
+
+
+
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="adnApplicationApp.update.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-update"
+        [routerLink]="['/update/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="adnApplicationApp.update.home.createLabel"> Create a new Update </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="updates?.length === 0">
+    <span jhiTranslate="adnApplicationApp.update.home.notFound">No updates found</span>
+  </div>
+      <input type="text" name="search" [(ngModel)]="searchText"  placeholder="Search">
+  <div class="table-responsive" id="entities" *ngIf="updates && updates.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+      <tr>
+        <!--          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>-->
+        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.update.uidUpdate">Uid Update</span></th>-->
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.calculatorName">Calculator Name</span></th>
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionName">Version Name</span></th>
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.statut">Statut</span></th>
+<!--        <th scope="col"><span jhiTranslate="adnApplicationApp.update.description">Description</span></th>-->
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.comment">Comment</span></th>
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.createBy">Create By</span></th>
+        <th scope="col"><span jhiTranslate="adnApplicationApp.update.createDate">Create Date</span></th>
+
+
+        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionApplicable">Version Applicable</span></th>-->
+        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionCible">Version Cible</span></th>-->
+        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.update.product">Product</span></th>-->
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+<!--      | paginate: { itemsPerPage: 10, currentPage: p }-->
+      <tr *ngFor="let update of updates |filter:searchText | paginate: { itemsPerPage: 10, currentPage: p } " data-cy="entityTable">
+
+        <td>{{NameCalculator(update.versionName)}}</td>
+        <td>{{NameVersion(update.versionName)}}</td>
+        <td jhiTranslate="{{ 'adnApplicationApp.StatutList.' + update.statut }}">{{ update.statut }}</td>
+<!--        <td>{{ update.description }}</td>-->
+        <td>{{ update.comment }}</td>
+        <td>{{ update.versionApplicable?.modifyBy}}</td>
+        <td>{{ update.versionApplicable?.modifidDate}}</td>
+
+        <!--          <td>-->
+        <!--            <div *ngIf="update.versionApplicable">-->
+        <!--              <a [routerLink]="['/version-applicable', update.versionApplicable?.id, 'view']">{{ update.versionApplicable?.id }}</a>-->
+        <!--            </div>-->
+        <!--          </td>-->
+        <!--          <td>-->
+        <!--            <div *ngIf="update.versionCible">-->
+        <!--              <a [routerLink]="['/version-cible', update.versionCible?.id, 'view']">{{ update.versionCible?.id }}</a>-->
+        <!--            </div>-->
+        <!--          </td>-->
+        <!--          <td>-->
+        <!--            <div *ngIf="update.product">-->
+        <!--              <a [routerLink]="['/product', update.product?.id, 'view']">{{ update.product?.id }}</a>-->
+        <!--            </div>-->
+        <!--          </td>-->
+        <td class="text-end">
+          <div class="btn-group">
+<!--            <button type="submit" [routerLink]="['/update', update.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">-->
+<!--              <fa-icon icon="eye"></fa-icon>-->
+<!--              <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
+
+<!--            </button>-->
+
+
+            <button type="submit" class="btn btn-info me-2 btn-sm" placement="bottom" ngbTooltip="View" [routerLink]="['/update', update.id, 'view']">
+              <fa-icon icon="eye"></fa-icon>
+            </button>
+            <button type="submit" class="btn btn-primary me-2 btn-sm" placement="bottom" ngbTooltip="Edit" [routerLink]="['/update', update.id, 'edit']">
+              <fa-icon icon="pencil-alt"></fa-icon>
+            </button>
+            <button type="submit" (click)="delete(update)" class="btn btn-danger me-2 btn-sm" placement="bottom" ngbTooltip="Delete" >
+              <fa-icon icon="times"></fa-icon>
+            </button>
+
+            <button  type="button"
+                     data-cy="entityCreateSaveStatut"
+                     (click)="changeStatut(update)"
+                     class="btn btn-warning me-2 btn-sm"  ngbTooltip="{{update.nextStatut}}" >
+                <fa-icon icon="angle-double-right"></fa-icon>
+
+            </button>
+
+<!--            <button type="submit"  [routerLink]="['/update', update.id, 'edit']"class="btn btn-primary btn-sm" data-cy="entityEditButton">-->
+<!--              <fa-icon icon="pencil-alt"></fa-icon>-->
+<!--              <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+
+<!--            </button>-->
+
+<!--            <button type="submit" (click)="delete(update)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">-->
+<!--              <fa-icon icon="times"></fa-icon>-->
+<!--              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+
+<!--            </button>-->
+<!--              <button-->
+<!--                      type="button"-->
+<!--                      id="save-statut"-->
+<!--                      data-cy="entityCreateSaveStatut"-->
+<!--                      (click)="changeStatut(update)"-->
+<!--                      class="btn btn-primary"-->
+<!--              >{{update.nextStatut}}</button>-->
+
+          </div>
+
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+
+</div>
+
+</div>
+</div>

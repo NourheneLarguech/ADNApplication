@@ -1,0 +1,160 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-version-applicable-heading"
+        data-cy="VersionApplicableCreateUpdateHeading"
+        jhiTranslate="adnApplicationApp.versionApplicable.home.createOrEditLabel"
+      >
+        Create or edit a Version Applicable
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+<!--        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">-->
+<!--          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>-->
+<!--          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />-->
+<!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.uidVersionApplicable" for="field_uidVersionApplicable"
+            >Uid Version Applicable</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="uidVersionApplicable"
+            id="field_uidVersionApplicable"
+            data-cy="uidVersionApplicable"
+            formControlName="uidVersionApplicable"
+          />
+          <div
+            *ngIf="
+              editForm.get('uidVersionApplicable')!.invalid &&
+              (editForm.get('uidVersionApplicable')!.dirty || editForm.get('uidVersionApplicable')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('uidVersionApplicable')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="adnApplicationApp.versionApplicable.nameVersionApplicable"
+            for="field_nameVersionApplicable"
+            >Name Version Applicable</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nameVersionApplicable"
+            id="field_nameVersionApplicable"
+            data-cy="nameVersionApplicable"
+            formControlName="nameVersionApplicable"
+          />
+          <div
+            *ngIf="
+              editForm.get('nameVersionApplicable')!.invalid &&
+              (editForm.get('nameVersionApplicable')!.dirty || editForm.get('nameVersionApplicable')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nameVersionApplicable')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.description" for="field_description"
+            >Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.createDate" for="field_createDate">Create Date</label>
+          <input
+            type="text"
+            class="form-control"
+            name="createDate"
+            id="field_createDate"
+            data-cy="createDate"
+            formControlName="createDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.modifyBy" for="field_modifyBy">Modify By</label>
+          <input type="text" class="form-control" name="modifyBy" id="field_modifyBy" data-cy="modifyBy" formControlName="modifyBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.modifidDate" for="field_modifidDate"
+            >Modifid Date</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="modifidDate"
+            id="field_modifidDate"
+            data-cy="modifidDate"
+            formControlName="modifidDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionApplicable.product" for="field_product">Product</label>
+          <select class="form-control" id="field_product" data-cy="product" name="product" formControlName="product">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.nameProduct }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
