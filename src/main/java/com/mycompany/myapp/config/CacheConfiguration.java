@@ -57,6 +57,7 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.VersionApplicable.class.getName() + ".updates");
             createCache(cm, com.mycompany.myapp.domain.VersionCible.class.getName());
             createCache(cm, com.mycompany.myapp.domain.VersionCible.class.getName() + ".updates");
+            createCache(cm, com.mycompany.myapp.domain.Client.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

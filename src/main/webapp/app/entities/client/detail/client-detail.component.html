@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="client">
+      <h2 data-cy="clientDetailsHeading"><span jhiTranslate="adnApplicationApp.client.detail.title">Client</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ client.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.uidClient">Uid Client</span></dt>
+        <dd>
+          <span>{{ client.uidClient }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.nameClient">Name Client</span></dt>
+        <dd>
+          <span>{{ client.nameClient }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.productClient">Product Client</span></dt>
+        <dd>
+          <span>{{ client.productClient }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.comment">Comment</span></dt>
+        <dd>
+          <span>{{ client.comment }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.description">Description</span></dt>
+        <dd>
+          <span>{{ client.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.statut">Statut</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'adnApplicationApp.Statut.' + client.statut }}">{{ client.statut }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.client_product">Client Product</span></dt>
+        <dd>
+          <div *ngIf="client.client_product">
+            <a [routerLink]="['/product', client.client_product?.id, 'view']">{{ client.client_product?.nameProduct }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.versionApplicable">Version Applicable</span></dt>
+        <dd>
+          <div *ngIf="client.versionApplicable">
+            <a [routerLink]="['/version-applicable', client.versionApplicable?.id, 'view']">{{
+              client.versionApplicable?.nameVersionApplicable
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.client.versionCible">Version Cible</span></dt>
+        <dd>
+          <div *ngIf="client.versionCible">
+            <a [routerLink]="['/version-cible', client.versionCible?.id, 'view']">{{ client.versionCible?.nameVersionCible }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
