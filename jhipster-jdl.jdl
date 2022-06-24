@@ -1,6 +1,4 @@
 
-
-
 enum StatutList{
 SUSPENDED
 IN_TEST
