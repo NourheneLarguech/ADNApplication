@@ -14,6 +14,8 @@ import { VersionApplicableService } from 'app/entities/version-applicable/servic
 import { IVersionCible } from 'app/entities/version-cible/version-cible.model';
 import { VersionCibleService } from 'app/entities/version-cible/service/version-cible.service';
 import { Statut } from 'app/entities/enumerations/statut.model';
+import { ModalComponent } from '../../client/modal/modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-client-update',
@@ -26,7 +28,10 @@ export class ClientUpdateComponent implements OnInit {
   productsSharedCollection: IProduct[] = [];
   versionApplicablesSharedCollection: IVersionApplicable[] = [];
   versionCiblesSharedCollection: IVersionCible[] = [];
-
+  profilProduct: string[] = [];
+  uidproduct?: string;
+  profil?: string;
+  pf = '';
   editForm = this.fb.group({
     id: [],
     uidClient: [],
@@ -39,14 +44,14 @@ export class ClientUpdateComponent implements OnInit {
     versionApplicable: [],
     versionCible: [],
   });
-
   constructor(
     protected clientService: ClientService,
     protected productService: ProductService,
     protected versionApplicableService: VersionApplicableService,
     protected versionCibleService: VersionCibleService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -55,12 +60,37 @@ export class ClientUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+    this.clientService.observable.subscribe(res => {
+      this.profil = res;
+      console.error(res);
+      this.clientService.viewProfil(this.uidproduct).subscribe(profil => {
+        console.log(profil.profiles);
+        this.profilProduct = profil.profiles;
+        this.pf = res;
+      });
+    });
   }
-
+  onChange(event: any): void {
+    this.uidproduct = event.uidProduct;
+    console.log(this.uidproduct);
+    this.clientService.viewProfil(this.uidproduct).subscribe(profil => {
+      console.log(profil.profiles);
+      this.profilProduct = profil.profiles;
+    });
+  }
   previousState(): void {
     window.history.back();
   }
-
+  AddProfil(): void {
+    this.afficher();
+  }
+  afficher(): void {
+    const client = this.createFromForm();
+    const modalRef = this.modalService.open(ModalComponent, { size: 'lg' });
+    // modalRef.closed;
+    modalRef.componentInstance.client = client;
+    this.profil = modalRef.componentInstance.profilClient;
+  }
   save(): void {
     this.isSaving = true;
     const client = this.createFromForm();

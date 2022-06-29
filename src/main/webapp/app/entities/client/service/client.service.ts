@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -12,10 +12,40 @@ export type EntityArrayResponseType = HttpResponse<IClient[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
+  profil: BehaviorSubject<any>;
+  observable!: Observable<any>;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/clients');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {
+    this.profil = new BehaviorSubject<any>('');
+    this.observable = this.profil.asObservable();
+  }
+  viewProfil(uidProduct?: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    uidProduct = uidProduct !== undefined ? uidProduct : '';
 
+    return this.http.get<any>(`https://test.actiaadn.com/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
+  }
+  addProfil(client?: IClient, profil?: string, listProfil?: string[][]): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    return this.http.put<any>(
+      'https://test.actiaadn.com/api/v1/product/',
+      {
+        versions: [],
+        updates: [],
+        id: '',
+        uid: client?.client_product?.uidProduct,
+        name: client?.client_product?.nameProduct,
+        comment: '',
+        code: '',
+        profiles: listProfil,
+        icon: null,
+        right: null,
+        uniqueProfiles: listProfil,
+      },
+      { headers: { authorization: token } }
+    );
+  }
   create(client: IClient): Observable<EntityResponseType> {
     return this.http.post<IClient>(this.resourceUrl, client, { observe: 'response' });
   }
@@ -56,5 +86,9 @@ export class ClientService {
       return [...clientsToAdd, ...clientCollection];
     }
     return clientCollection;
+  }
+
+  shareData(newValue: any): void {
+    this.profil.next(newValue);
   }
 }

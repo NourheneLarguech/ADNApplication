@@ -42,6 +42,11 @@ import { UpdateModule } from './update/update.module';
         data: { pageTitle: 'adnApplicationApp.update.home.title' },
         loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
       },
+      {
+        path: 'client-update',
+        data: { pageTitle: 'adnApplicationApp.clientUpdate.home.title' },
+        loadChildren: () => import('./client-update/client-update.module').then(m => m.ClientUpdateModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

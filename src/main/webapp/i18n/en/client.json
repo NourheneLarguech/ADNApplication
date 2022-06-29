@@ -5,7 +5,7 @@
         "title": "Clients",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Client",
-        "createOrEditLabel": "Create or edit a Client",
+        "createOrEditLabel": "Create  a new client",
         "notFound": "No Clients found"
       },
       "created": "A new Client is created with identifier {{ param }}",
@@ -20,13 +20,14 @@
       "id": "ID",
       "uidClient": "Uid Client",
       "nameClient": "Name Client",
-      "productClient": "Product Client",
+      "productClient": "Profil",
       "comment": "Comment",
       "description": "Description",
       "statut": "Statut",
       "client_product": "Client Product",
       "versionApplicable": "Version Applicable",
-      "versionCible": "Version Cible"
+      "versionCible": "Version Cible",
+      "profil": "Profil Name"
     }
   }
 }

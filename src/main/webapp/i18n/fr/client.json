@@ -5,7 +5,7 @@
         "title": "Clients",
         "refreshListLabel": "Actualiser la liste",
         "createLabel": "Créer un nouveau Client",
-        "createOrEditLabel": "Créer ou éditer un Client",
+        "createOrEditLabel": "Créer un nouveau client",
         "notFound": "Aucun Client trouvé"
       },
       "created": "Un nouveau Client a été créé avec l'identifiant {{ param }}",
@@ -19,14 +19,15 @@
       },
       "id": "ID",
       "uidClient": "Uid Client",
-      "nameClient": "Name Client",
-      "productClient": "Product Client",
-      "comment": "Comment",
+      "nameClient": "Nom du client",
+      "productClient": "Profil",
+      "comment": "Commentaire",
       "description": "Description",
       "statut": "Statut",
-      "client_product": "Client Product",
+      "client_product": "Type du produit",
       "versionApplicable": "Version Applicable",
-      "versionCible": "Version Cible"
+      "versionCible": "Version Cible",
+      "profil": "Nom de profil"
     }
   }
 }
