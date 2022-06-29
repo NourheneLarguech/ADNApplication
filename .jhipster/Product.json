@@ -19,7 +19,7 @@
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Product",
-  "pagination": "no",
+  "pagination": "pagination",
   "readOnly": false,
   "relationships": [
     {

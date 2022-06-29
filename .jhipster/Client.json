@@ -28,7 +28,7 @@
     }
   ],
   "name": "Client",
-  "pagination": "no",
+  "pagination": "pagination",
   "readOnly": false,
   "relationships": [
     {
