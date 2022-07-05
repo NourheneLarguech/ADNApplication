@@ -26,7 +26,7 @@
       "statut": "Statut",
       "client_product": "Type du produit",
       "versionApplicable": "Version Applicable",
-      "versionCible": "Version Cible",
+      "versionCible": "Version",
       "profil": "Nom de profil"
     }
   }

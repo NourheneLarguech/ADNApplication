@@ -32,25 +32,25 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="adnApplicationApp.client.uidClient">Uid Client</span></th>
+          <!--          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>-->
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.client.uidClient">Uid Client</span></th>-->
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.nameClient">Name Client</span></th>
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.productClient">Product Client</span></th>
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.comment">Comment</span></th>
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.description">Description</span></th>
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.statut">Statut</span></th>
           <th scope="col"><span jhiTranslate="adnApplicationApp.client.client_product">Client Product</span></th>
-          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionApplicable">Version Applicable</span></th>
-          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionCible">Version Cible</span></th>
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionApplicable">Version Applicable</span></th>-->
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionCible">Version </span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let client of clients; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/client', client.id, 'view']">{{ client.id }}</a>
-          </td>
-          <td>{{ client.uidClient }}</td>
+          <!--          <td>-->
+          <!--            <a [routerLink]="['/client', client.id, 'view']">{{ client.id }}</a>-->
+          <!--          </td>-->
+          <!--          <td>{{ client.uidClient }}</td>-->
           <td>{{ client.nameClient }}</td>
           <td>{{ client.productClient }}</td>
           <td>{{ client.comment }}</td>
@@ -61,13 +61,13 @@
               <a [routerLink]="['/product', client.client_product?.id, 'view']">{{ client.client_product?.nameProduct }}</a>
             </div>
           </td>
-          <td>
-            <div *ngIf="client.versionApplicable">
-              <a [routerLink]="['/version-applicable', client.versionApplicable?.id, 'view']">{{
-                client.versionApplicable?.nameVersionApplicable
-              }}</a>
-            </div>
-          </td>
+          <!--          <td>-->
+          <!--            <div *ngIf="client.versionApplicable">-->
+          <!--              <a [routerLink]="['/version-applicable', client.versionApplicable?.id, 'view']">{{-->
+          <!--                client.versionApplicable?.nameVersionApplicable-->
+          <!--              }}</a>-->
+          <!--            </div>-->
+          <!--          </td>-->
           <td>
             <div *ngIf="client.versionCible">
               <a [routerLink]="['/version-cible', client.versionCible?.id, 'view']">{{ client.versionCible?.nameVersionCible }}</a>

@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IClient, getClientIdentifier } from '../client.model';
+import { IUpdate } from '../../update/update.model';
 
 export type EntityResponseType = HttpResponse<IClient>;
 export type EntityArrayResponseType = HttpResponse<IClient[]>;
@@ -90,5 +91,45 @@ export class ClientService {
 
   shareData(newValue: any): void {
     this.profil.next(newValue);
+  }
+
+  createV0ADN(client: IClient): Observable<any> {
+    console.log('addVersionApplicable');
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    const nameVersion =
+      client?.productClient?.concat('_ActimuxIndexV0') === undefined ? '' : client?.productClient.concat('ActimuxIndexV0');
+    return this.http.post<any>(
+      'https://test.actiaadn.com/api/v1/version/',
+      { name: nameVersion, comment: client.comment, description: client.description, productUid: client.client_product?.uidProduct },
+      { headers: { authorization: token } }
+    );
+  }
+
+  createV0(client: IClient, version: any): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    // console.log(todayString);
+    console.log('token :' + token);
+    // console.log(ID)
+    // ID=ID===undefined?0:ID;
+
+    return this.http.post<any>(
+      'http://localhost:8080/api/clients',
+      {
+        uidClient: version.uid,
+        nameClient: client.nameClient,
+        productClient: client.productClient,
+        comment: client.comment,
+        description: client.description,
+        statut: 'SUSPENDED',
+        client_product: {
+          id: client.client_product?.id,
+          uidProduct: client.client_product?.uidProduct,
+          nameProduct: client.client_product?.nameProduct,
+        },
+        versionApplicable: null,
+        versionCible: null,
+      },
+      { headers: { authorization: `Bearer ${token}` } }
+    );
   }
 }

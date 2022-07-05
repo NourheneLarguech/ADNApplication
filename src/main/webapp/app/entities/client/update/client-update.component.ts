@@ -24,7 +24,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ClientUpdateComponent implements OnInit {
   isSaving = false;
   statutValues = Object.keys(Statut);
-
+  version0: any;
   productsSharedCollection: IProduct[] = [];
   versionApplicablesSharedCollection: IVersionApplicable[] = [];
   versionCiblesSharedCollection: IVersionCible[] = [];
@@ -94,11 +94,23 @@ export class ClientUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const client = this.createFromForm();
-    if (client.id !== undefined) {
-      this.subscribeToSaveResponse(this.clientService.update(client));
-    } else {
-      this.subscribeToSaveResponse(this.clientService.create(client));
-    }
+    // if (client.id !== undefined) {
+    this.clientService.createV0ADN(client).subscribe(version0 => {
+      console.log(version0);
+      this.version0 = version0;
+      this.clientService.createV0(client, this.version0).subscribe(
+        v0 => {
+          console.log(v0);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    });
+    // } else {
+    // this.subscribeToSaveResponse(this.clientService.create(client));
+    // }
+    // }
   }
 
   trackProductById(index: number, item: IProduct): number {
