@@ -32,6 +32,7 @@ export class ClientUpdateComponent implements OnInit {
   uidproduct?: string;
   profil?: string;
   pf = '';
+  todayString = new Date().toDateString();
   editForm = this.fb.group({
     id: [],
     uidClient: [],
@@ -107,10 +108,6 @@ export class ClientUpdateComponent implements OnInit {
         }
       );
     });
-    // } else {
-    // this.subscribeToSaveResponse(this.clientService.create(client));
-    // }
-    // }
   }
 
   trackProductById(index: number, item: IProduct): number {

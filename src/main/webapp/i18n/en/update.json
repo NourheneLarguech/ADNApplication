@@ -9,6 +9,8 @@
         "notFound": "No Updates found",
         "NomFiltrage": "Products List"
       },
+      "ChangeStatus": "Change Status",
+      "actualStatus": "actual Status",
       "created": "A new Update is created with identifier {{ param }}",
       "updated": "A Update is updated with identifier {{ param }}",
       "deleted": "A Update is deleted with identifier {{ param }}",

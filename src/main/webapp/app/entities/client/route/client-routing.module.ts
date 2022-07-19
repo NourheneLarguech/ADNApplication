@@ -6,6 +6,7 @@ import { ClientComponent } from '../list/client.component';
 import { ClientDetailComponent } from '../detail/client-detail.component';
 import { ClientUpdateComponent } from '../update/client-update.component';
 import { ClientRoutingResolveService } from './client-routing-resolve.service';
+import { EditVersionComponent } from '../edit-version/edit-version.component';
 
 const clientRoute: Routes = [
   {
@@ -31,7 +32,7 @@ const clientRoute: Routes = [
   },
   {
     path: ':id/edit',
-    component: ClientUpdateComponent,
+    component: EditVersionComponent,
     resolve: {
       client: ClientRoutingResolveService,
     },

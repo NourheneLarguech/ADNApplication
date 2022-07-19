@@ -6,10 +6,18 @@ import { ClientUpdateComponent } from './update/client-update.component';
 import { ClientDeleteDialogComponent } from './delete/client-delete-dialog.component';
 import { ClientRoutingModule } from './route/client-routing.module';
 import { ModalComponent } from './modal/modal.component';
+import { EditVersionComponent } from './edit-version/edit-version.component';
 
 @NgModule({
   imports: [SharedModule, ClientRoutingModule],
-  declarations: [ClientComponent, ClientDetailComponent, ClientUpdateComponent, ClientDeleteDialogComponent, ModalComponent],
+  declarations: [
+    ClientComponent,
+    ClientDetailComponent,
+    ClientUpdateComponent,
+    ClientDeleteDialogComponent,
+    ModalComponent,
+    EditVersionComponent,
+  ],
   entryComponents: [ClientDeleteDialogComponent],
 })
 export class ClientModule {}

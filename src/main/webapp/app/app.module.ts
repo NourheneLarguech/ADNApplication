@@ -27,7 +27,6 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { ModalComponent } from './entities/update/modal/modal.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -39,7 +38,7 @@ import { ModalComponent } from './entities/update/modal/modal.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
-    TranslationModule
+    TranslationModule,
   ],
   providers: [
     Title,

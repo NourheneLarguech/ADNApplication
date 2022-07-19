@@ -9,6 +9,8 @@
         "notFound": "Aucun Update trouvé",
         "NomFiltrage": "Liste des produits"
       },
+      "ChangeStatus": "Changer statut",
+      "actualStatus": "Statut actuel",
       "created": "Un nouveau Update a été créé avec l'identifiant {{ param }}",
       "updated": "Le Update avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "Le Update avec l'identifiant {{ param }} a été supprimé",
@@ -31,7 +33,6 @@
       "ListProduit": "Liste des produits :",
       "createBy": "Créé par",
       "createDate": "Date de création"
-
     }
   }
 }
