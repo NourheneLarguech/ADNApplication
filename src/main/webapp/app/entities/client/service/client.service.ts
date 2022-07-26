@@ -249,6 +249,34 @@ export class ClientService {
       { headers: { authorization: `Bearer ${token}` } }
     );
   }
+
+  //create version applicable à partir de version cible
+  createVersionApplicableFromCible(client: IClient, todayString: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    // console.log(todayString);
+    console.log('token :' + token);
+    return this.http.post<any>(
+      'http://localhost:8080/api/version-applicables',
+      {
+        uidVersionApplicable: client.versionCible?.uidVersionCible,
+        nameVersionApplicable: client.versionCible?.nameVersionCible,
+        comment: client.comment,
+        description: client.description,
+        createDate: todayString,
+        modifyBy: client.versionCible?.modifyBy,
+        modifidDate: todayString,
+        product: {
+          id: client.client_product?.id,
+          uidProduct: client.client_product?.uidProduct,
+          nameProduct: client.client_product?.nameProduct,
+          versionApplicables: null,
+          versionCibles: null,
+          updates: null,
+        },
+      },
+      { headers: { authorization: `Bearer ${token}` } }
+    );
+  }
   createVersionCible(client: IClient, todayString: string, uid: string, name: string, createby: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
     //console.log('token :'+ token)
