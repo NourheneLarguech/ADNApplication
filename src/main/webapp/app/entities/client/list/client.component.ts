@@ -13,7 +13,7 @@ import { ClientDeleteDialogComponent } from '../delete/client-delete-dialog.comp
 export class ClientComponent implements OnInit {
   clients?: IClient[];
   isLoading = false;
-
+  NumVersion?: any;
   constructor(protected clientService: ClientService, protected modalService: NgbModal) {}
 
   loadAll(): void {
@@ -36,6 +36,21 @@ export class ClientComponent implements OnInit {
 
   trackId(index: number, item: IClient): number {
     return item.id!;
+  }
+  nameClient(name?: any): any {
+    return name?.substring(0, name.indexOf('_'));
+  }
+  version(name?: any): any {
+    console.log(typeof name);
+    if (typeof name === 'string') {
+      this.NumVersion = name.substring(name.length - 2, name?.length);
+    }
+    if (typeof name === 'object') {
+      console.log('else');
+      this.NumVersion = 'V0';
+    }
+
+    return this.NumVersion;
   }
 
   delete(client: IClient): void {

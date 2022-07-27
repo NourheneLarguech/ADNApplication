@@ -51,7 +51,7 @@
           <!--            <a [routerLink]="['/client', client.id, 'view']">{{ client.id }}</a>-->
           <!--          </td>-->
           <!--          <td>{{ client.uidClient }}</td>-->
-          <td>{{ client.nameClient }}</td>
+          <td>{{ nameClient(client.nameClient) }}</td>
           <td>{{ client.productClient }}</td>
           <td>{{ client.comment }}</td>
           <td>{{ client.description }}</td>
@@ -69,9 +69,7 @@
           <!--            </div>-->
           <!--          </td>-->
           <td>
-            <div *ngIf="client.versionCible">
-              <a [routerLink]="['/version-cible', client.versionCible?.id, 'view']">{{ client.versionCible?.nameVersionCible }}</a>
-            </div>
+            {{ version(client.versionCible?.nameVersionCible) }}
           </td>
           <td class="text-end">
             <div class="btn-group">
