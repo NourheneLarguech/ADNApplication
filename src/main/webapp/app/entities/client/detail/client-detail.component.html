@@ -59,13 +59,41 @@
           </div>
         </dd>
       </dl>
+      <h2 data-cy="productDetailsHeading">
+        <span jhiTranslate="adnApplicationApp.product.titlePackageProduit">Les packages de produit</span>
+      </h2>
 
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      <hr />
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.calculatorName">Calculator Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionName">Version Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.statut">Statut</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.comment">Comment</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let getUpdate of permissionClient" data-cy="entityTable">
+            <td *ngIf="getUpdate.client.id === client.id">{{ NameCalculator(getUpdate.update.versionName) }}</td>
+            <td *ngIf="getUpdate.client.id === client.id">{{ NameVersion(getUpdate.update.versionName) }}</td>
+            <td *ngIf="getUpdate.client.id === client.id">{{ getUpdate.update.statut }}</td>
+            <td *ngIf="getUpdate.client.id === client.id">{{ getUpdate.update.comment }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info me-2 btn-sm" placement="bottom" ngbTooltip="Back">
+        <fa-icon icon="arrow-left"></fa-icon>
       </button>
-
-      <button type="button" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      <button
+        type="submit"
+        class="btn btn-primary me-2 btn-sm"
+        placement="bottom"
+        ngbTooltip="Edit"
+        [routerLink]="['/client', client.id, 'edit']"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>
       </button>
     </div>
   </div>

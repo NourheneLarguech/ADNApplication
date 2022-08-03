@@ -14,6 +14,7 @@ export interface IClient {
   client_product?: IProduct | null;
   versionApplicable?: IVersionApplicable | null;
   versionCible?: IVersionCible | null;
+  nextStatut?: Statut | null;
 }
 
 export class Client implements IClient {
@@ -27,7 +28,8 @@ export class Client implements IClient {
     public statut?: Statut | null,
     public client_product?: IProduct | null,
     public versionApplicable?: IVersionApplicable | null,
-    public versionCible?: IVersionCible | null
+    public versionCible?: IVersionCible | null,
+    public nextStatut?: Statut | null
   ) {}
 }
 

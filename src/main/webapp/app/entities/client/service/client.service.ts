@@ -413,4 +413,75 @@ export class ClientService {
       headers: { authorization: `Bearer ${token}` },
     });
   }
+  getUpdate(client: IClient): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
+    return this.http.get(`https://test.actiaadn.com/api/v1/update/${uidClient}`, { headers: { authorization: token } });
+  }
+  EditStatut(client: IClient): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    // console.log("*****");
+    const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
+    //console.error('test uiid0 ',uiUpdate);
+    return this.http.patch<any>(
+      `https://test.actiaadn.com/api/v1/update/${uidClient}`,
+      {},
+      { headers: { authorization: token }, responseType: 'text' as 'json' }
+    );
+  }
+  EditerUpdate(client: IClient, statut: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    const id: number | undefined = client.id;
+    const idUpdate: string = id?.toString() !== undefined ? id?.toString() : '';
+    return this.http.put<any>(
+      `http://localhost:8080/api/clients/${id}`,
+      {
+        id: client.id,
+        uidClient: client.uidClient,
+        nameClient: client.nameClient,
+        productClient: client.productClient,
+        comment: client.comment,
+        description: client.description,
+        statut: statut,
+        client_product: {
+          id: client.client_product?.id,
+          uidProduct: client.client_product?.uidProduct,
+          nameProduct: client.client_product?.nameProduct,
+        },
+        versionApplicable: {
+          id: client.versionApplicable?.id,
+          uidVersionApplicable: client.versionApplicable?.uidVersionApplicable,
+          nameVersionApplicable: client.versionApplicable?.nameVersionApplicable,
+          comment: client.comment,
+          description: client.description,
+          createDate: client.versionApplicable?.createDate,
+          modifyBy: client.versionApplicable?.modifyBy,
+          modifidDate: client.versionApplicable?.modifidDate,
+          updates: null,
+          product: {
+            id: client.client_product?.id,
+            uidProduct: client.client_product?.uidProduct,
+            nameProduct: client.client_product?.nameProduct,
+          },
+        },
+        versionCible: {
+          id: client.versionCible?.id,
+          uidVersionCible: client.versionCible?.uidVersionCible,
+          nameVersionCible: client.versionCible?.nameVersionCible,
+          comment: client.comment,
+          description: client.description,
+          createDate: client.versionCible?.createDate,
+          modifyBy: client.versionCible?.modifyBy,
+          modifidDate: client.versionCible?.modifyBy,
+          updates: null,
+          product: {
+            id: client.client_product?.id,
+            uidProduct: client.client_product?.uidProduct,
+            nameProduct: client.client_product?.nameProduct,
+          },
+        },
+      },
+      { headers: { authorization: `Bearer ${token}` } }
+    );
+  }
 }

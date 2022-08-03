@@ -6,7 +6,7 @@
 Bootstrap tweaks
 ===============================================================*/
 
-.btn{
+.btn {
   color: white;
 }
 body,
@@ -16,6 +16,37 @@ h3,
 h4 {
   font-weight: 300;
 }
+input:focus,
+input:active {
+  box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #fff !important;
+}
+.SUSPENDED {
+  background-color: red;
+  border: 0;
+  color: white;
+  padding: 7px;
+  margin-right: 5px;
+}
+.IN_TEST {
+}
+.FIELD_TEST {
+}
+.PUBLISHED {
+  background-color: #62ff00;
+  border: 0;
+  color: white;
+  padding: 7px;
+  margin-right: 5px;
+}
+.Autorise {
+  color: #28a745;
+}
+.NonAutorise {
+  color: red;
+}
+
 /* The container */
 .container {
   display: block;
@@ -53,17 +84,17 @@ h4 {
 .label-input:hover input ~ .checkmark {
   background-color: #ccc;
 }
-input #field_versionName :focus{
+input #field_versionName :focus {
   border: #a7a7a7;
 }
 /* When the checkbox is checked, add a blue background */
 .label-input input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -86,33 +117,34 @@ input #field_versionName :focus{
   transform: rotate(45deg);
 }
 #main {
-  max-with:960px;
-  margin:auto;
+  max-with: 960px;
+  margin: auto;
 }
-#menu  {
-padding-left: -10%;
+#menu {
+  padding-left: -10%;
   background-color: #a7a7a7;
 }
-ul.side-menu{
+ul.side-menu {
   height: calc(100vh - 220px);
   overflow: auto;
-  li{
+  li {
     list-style-type: none;
     margin-bottom: 10px;
-    label{
+    label {
       position: relative;
-      input[type=checkbox]{
+      input[type='checkbox'] {
         display: none;
       }
     }
   }
 }
-span.label-span{
+span.label-span {
   color: white;
 }
-fa-icon{color: white}
+fa-icon {
+  color: white;
+}
 #contenu {
-
   min-height: calc(100vh - 172px);
   //background-color:#9966FF;
 }
@@ -310,15 +342,16 @@ ui bootstrap tweaks
   padding-left: 0px;
   padding: 3px;
 }
-.list{
-   float:right;display:inline-block;
+.list {
+  float: right;
+  display: inline-block;
   position: static;
 }
-.list-group{
+.list-group {
   //float: left;
- width: 150px;
+  width: 150px;
   padding-top: 20px;
- //display:inline-block;
+  //display:inline-block;
 }
 /* ==========================================================================
 angular-cli removes postcss-rtl processed inline css, processed rules must be added here instead
@@ -349,21 +382,32 @@ element.style {
 }
 
 .w3-sidebar.w3-collapse {
-  display: block!important;
+  display: block !important;
 }
-.w3-white, .w3-hover-white:hover {
-  color: #000!important;
-  background-color: #fff!important;
+.w3-white,
+.w3-hover-white:hover {
+  color: #000 !important;
+  background-color: #fff !important;
 }
 .w3-sidebar {
   height: 100%;
   width: 200px;
   background-color: #fff;
-  position: fixed!important;
+  position: fixed !important;
   z-index: 1;
   overflow: auto;
 }
 
-article, aside, details, figcaption, figure, footer, header, main, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section {
   display: block;
 }
