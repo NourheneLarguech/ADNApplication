@@ -1,0 +1,54 @@
+{
+  "changelogDate": "20220623153913",
+  "fields": [
+    {
+      "fieldName": "uidClient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nameClient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "productClient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "Statut",
+      "fieldValues": "SUSPENDED,IN_TEST,FIELD_TEST,PUBLISHED"
+    }
+  ],
+  "name": "Client",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "Product",
+      "otherEntityName": "product",
+      "relationshipName": "client_product",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nameVersionApplicable",
+      "otherEntityName": "versionApplicable",
+      "relationshipName": "versionApplicable",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nameVersionCible",
+      "otherEntityName": "versionCible",
+      "relationshipName": "versionCible",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

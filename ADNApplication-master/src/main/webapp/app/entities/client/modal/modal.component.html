@@ -1,0 +1,22 @@
+<form name="deleteForm">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="updateDeleteDialogHeading">Ajouter un nouveau profil</h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row mb-3" [formGroup]="myGroup">
+      <label class="form-label" jhiTranslate="adnApplicationApp.client.profil" for="field_profil">Profil</label>
+      <input #field_profil type="text" class="profil" name="profil" id="field_profil" data-cy="profil" formControlName="profil" />
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="save()">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">&nbsp;<span>close</span></button>
+  </div>
+</form>

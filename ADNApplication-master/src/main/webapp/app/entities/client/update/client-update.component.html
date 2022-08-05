@@ -1,0 +1,165 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-client-heading" data-cy="ClientCreateUpdateHeading" jhiTranslate="adnApplicationApp.client.home.createOrEditLabel">
+        Create new client
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.uidClient" for="field_uidClient">Uid Client</label>-->
+        <!--          <input type="text" class="form-control" name="uidClient" id="field_uidClient" data-cy="uidClient" formControlName="uidClient" />-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.nameClient" for="field_nameClient">Name Client</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameClient"
+            id="field_nameClient"
+            data-cy="nameClient"
+            formControlName="nameClient"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.statut" for="field_statut">Statut</label>-->
+        <!--          <select class="form-control" name="statut" formControlName="statut" id="field_statut" data-cy="statut">-->
+        <!--            <option [ngValue]="null">{{ 'adnApplicationApp.Statut.null' | translate }}</option>-->
+        <!--            <option *ngFor="let statut of statutValues" [value]="statut">{{ 'adnApplicationApp.Statut.' + statut | translate }}</option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.client_product" for="field_client_product">Client Product</label>
+          <select
+            class="form-control"
+            id="field_client_product"
+            data-cy="client_product"
+            (ngModelChange)="onChange($event)"
+            formControlName="client_product"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                productOption.id === editForm.get('client_product')!.value?.id ? editForm.get('client_product')!.value : productOption
+              "
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.nameProduct }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.productClient" for="field_productClient">Profil</label>
+          <select class="form-control" id="field_productClient" data-cy="productClient" formControlName="productClient" [(ngModel)]="pf">
+            <option [ngValue]=""></option>
+
+            <option [ngValue]="productOption" *ngFor="let productOption of profilProduct">
+              {{ productOption }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <button type="button" id="save-profil" (click)="AddProfil()" class="btn btn-warning">
+            <fa-icon icon="add"></fa-icon> <span>Ajout Profil</span>
+          </button>
+        </div>
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.productClient" for="field_productClient">Product Client</label>-->
+        <!--          <input-->
+        <!--                  type="text"-->
+        <!--                  class="form-control"-->
+        <!--                  name="productClient"-->
+        <!--                  id="field_productClient"-->
+        <!--                  data-cy="productClient"-->
+        <!--                  formControlName="productClient"-->
+        <!--          />-->
+        <!--        </div>-->
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.versionApplicable" for="field_versionApplicable"-->
+        <!--            >Version Applicable</label-->
+        <!--          >-->
+        <!--          <select-->
+        <!--            class="form-control"-->
+        <!--            id="field_versionApplicable"-->
+        <!--            data-cy="versionApplicable"-->
+        <!--            name="versionApplicable"-->
+        <!--            formControlName="versionApplicable"-->
+        <!--          >-->
+        <!--            <option [ngValue]="null"></option>-->
+        <!--            <option-->
+        <!--              [ngValue]="-->
+        <!--                versionApplicableOption.id === editForm.get('versionApplicable')!.value?.id-->
+        <!--                  ? editForm.get('versionApplicable')!.value-->
+        <!--                  : versionApplicableOption-->
+        <!--              "-->
+        <!--              *ngFor="let versionApplicableOption of versionApplicablesSharedCollection; trackBy: trackVersionApplicableById"-->
+        <!--            >-->
+        <!--              {{ versionApplicableOption.nameVersionApplicable }}-->
+        <!--            </option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.versionCible" for="field_versionCible">Version Cible</label>-->
+        <!--          <select class="form-control" id="field_versionCible" data-cy="versionCible" name="versionCible" formControlName="versionCible" (change)="onChange($event)">-->
+        <!--            <option [ngValue]="null"></option>-->
+        <!--            <option-->
+        <!--              [ngValue]="-->
+        <!--                versionCibleOption.id === editForm.get('versionCible')!.value?.id ? editForm.get('versionCible')!.value : versionCibleOption-->
+        <!--              "-->
+        <!--              *ngFor="let versionCibleOption of versionCiblesSharedCollection; trackBy: trackVersionCibleById"-->
+        <!--            >-->
+        <!--              {{ versionCibleOption.nameVersionCible }}-->
+        <!--            </option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

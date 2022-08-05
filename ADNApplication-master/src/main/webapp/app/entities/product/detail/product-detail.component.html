@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="product">
+      <h2 data-cy="productDetailsHeading"><span jhiTranslate="adnApplicationApp.product.detail.title">Product</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <!--        <dt><span jhiTranslate="global.field.id">ID</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ product.id }}</span>-->
+        <!--        </dd>-->
+        <dt><span jhiTranslate="adnApplicationApp.product.uidProduct">Uid Product</span></dt>
+        <dd>
+          <span>{{ product.uidProduct }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.product.nameProduct">Name Product</span></dt>
+        <dd>
+          <span>{{ product.nameProduct }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.product.commentProduct">Comment Product</span></dt>
+        <dd>
+          <span>{{ ResProduct.comment }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.product.profilsProduct">Profils associés</span></dt>
+        <dd>
+          <span>{{ ResProduct.profiles }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product', product.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+      <!--Partie tableau-->
+      <!--        <div class="table-responsive" id="entities" *ngIf="products && products.length > 0">-->
+      <h2 data-cy="productDetailsHeading">
+        <span jhiTranslate="adnApplicationApp.product.titlePackageProduit">Les packages de produit</span>
+      </h2>
+
+      <hr />
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.calculatorName">Calculator Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionName">Version Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.statut">Statut</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.comment">Comment</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.createBy">Create By</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.createDate">Create Date</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let getUpdate of resGetUpdate" data-cy="entityTable">
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ NameCalculator(getUpdate.versionName) }}</td>
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ NameVersion(getUpdate.versionName) }}</td>
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ getUpdate.statut }}</td>
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ getUpdate.comment }}</td>
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ getUpdate.versionApplicable?.modifyBy }}</td>
+            <td *ngIf="getUpdate.product.uidProduct === product.uidProduct">{{ getUpdate.versionApplicable?.modifidDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--        </div>-->
+    </div>
+  </div>
+</div>

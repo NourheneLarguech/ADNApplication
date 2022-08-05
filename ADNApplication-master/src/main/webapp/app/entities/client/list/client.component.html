@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="ClientHeading">
+    <span jhiTranslate="adnApplicationApp.client.home.title">Clients</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="adnApplicationApp.client.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-client"
+        [routerLink]="['/client/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="adnApplicationApp.client.home.createLabel"> Create a new Client </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="clients?.length === 0">
+    <span jhiTranslate="adnApplicationApp.client.home.notFound">No clients found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="clients && clients.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <!--          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>-->
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.client.uidClient">Uid Client</span></th>-->
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.nameClient">Name Client</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.productClient">Product Client</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.comment">Comment</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.statut">Statut</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.client_product">Client Product</span></th>
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionApplicable">Version Applicable</span></th>-->
+          <th scope="col"><span jhiTranslate="adnApplicationApp.client.versionCible">Version </span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients; trackBy: trackId" data-cy="entityTable">
+          <!--          <td>-->
+          <!--            <a [routerLink]="['/client', client.id, 'view']">{{ client.id }}</a>-->
+          <!--          </td>-->
+          <!--          <td>{{ client.uidClient }}</td>-->
+          <td>{{ nameClient(client.nameClient) }}</td>
+          <td>{{ client.productClient }}</td>
+          <td>{{ client.comment }}</td>
+          <td>{{ client.description }}</td>
+          <td jhiTranslate="{{ 'adnApplicationApp.Statut.' + client.statut }}">{{ client.statut }}</td>
+          <td>
+            <div *ngIf="client.client_product">
+              <a [routerLink]="['/product', client.client_product?.id, 'view']">{{ client.client_product?.nameProduct }}</a>
+            </div>
+          </td>
+          <!--          <td>-->
+          <!--            <div *ngIf="client.versionApplicable">-->
+          <!--              <a [routerLink]="['/version-applicable', client.versionApplicable?.id, 'view']">{{-->
+          <!--                client.versionApplicable?.nameVersionApplicable-->
+          <!--              }}</a>-->
+          <!--            </div>-->
+          <!--          </td>-->
+          <td>
+            {{ version(client.versionCible?.nameVersionCible) }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Faire une mise à jour</span>
+              </button>
+              <!--              <button type="submit" [routerLink]="['/client', client.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">-->
+              <!--                <fa-icon icon="eye"></fa-icon>-->
+              <!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
+              <!--              </button>-->
+
+              <!--              <button type="submit" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">-->
+              <!--                <fa-icon icon="pencil-alt"></fa-icon>-->
+              <!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+              <!--              </button>-->
+
+              <button type="submit" (click)="delete(client)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

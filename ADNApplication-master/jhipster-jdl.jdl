@@ -1,0 +1,51 @@
+
+enum StatutList{
+SUSPENDED
+IN_TEST
+FIELD_TEST
+PUBLISHED
+}
+entity Product {
+    uidProduct String required unique
+	nameProduct String required
+  }
+entity Update {
+    uidUpdate String required unique
+    versionName String required unique
+    statut StatutList
+    description String 
+    comment String
+}
+entity VersionApplicable{
+   uidVersionApplicable String required unique
+   nameVersionApplicable String required unique
+   comment String
+   description String
+   createDate String
+   modifyBy  String
+   modifidDate String
+   
+   
+}
+entity VersionCible{
+   uidVersionCible String required unique
+   nameVersionCible String required unique
+   comment String
+   description String
+   createDate String
+   modifyBy  String
+   modifidDate String
+   
+   
+}
+  relationship OneToMany {
+	
+    Product to VersionApplicable{product}
+    Product to VersionCible{product}
+    VersionApplicable to Update{versionApplicable}
+    VersionCible to Update{versionCible}
+    Product to Update{product}
+    
+    }
+    
+  

@@ -13,6 +13,7 @@
         "versionCible": "Version Cible",
         "client": "Client",
         "clientUpdate": "Client Update",
+        "link": "Link",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

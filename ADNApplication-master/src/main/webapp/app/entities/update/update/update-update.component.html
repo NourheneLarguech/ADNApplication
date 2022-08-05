@@ -1,0 +1,214 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-update-heading" data-cy="UpdateCreateUpdateHeading" jhiTranslate="adnApplicationApp.update.home.createOrEditLabel">
+        Create or edit a Update
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.product" for="field_product">Product</label>
+          <select class="form-control" id="field_product" data-cy="product" name="product" formControlName="product">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.nameProduct }}
+            </option>
+          </select>
+        </div>
+        <!-- Upload file .crc-->
+        <!--        <div class="mb-3">-->
+        <!--          <label for="formFile" class="form-label">Fichier .crc :</label>-->
+        <!--          <input class="form-control" type="file" id="formFile"  (change)="fileChanged($event)">-->
+        <!--        </div>-->
+        <!--        <button type="button" class="btn btn-primary"-->
+        <!--                (click)="uploadDocument()">Upload File</button>-->
+
+        <div class="mb-3">
+          <label class="form-label">Fichier .z :</label>
+          <input class="form-control" type="file" (change)="handleFileUpload($event)" />
+        </div>
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.update.uidUpdate" for="field_uidUpdate">Uid Update</label>-->
+        <!--          <input type="text" class="form-control" name="uidUpdate" id="field_uidUpdate" data-cy="uidUpdate" formControlName="uidUpdate" />-->
+        <!--          <div *ngIf="editForm.get('uidUpdate')!.invalid && (editForm.get('uidUpdate')!.dirty || editForm.get('uidUpdate')!.touched)">-->
+        <!--            <small-->
+        <!--              class="form-text text-danger"-->
+        <!--              *ngIf="editForm.get('uidUpdate')?.errors?.required"-->
+        <!--              jhiTranslate="entity.validation.required"-->
+        <!--            >-->
+        <!--              This field is required.-->
+        <!--            </small>-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionName" for="field_versionName">Version Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="versionName"
+            [(ngModel)]="versionName"
+            id="field_versionName"
+            data-cy="versionName"
+            formControlName="versionName"
+          />
+          <div *ngIf="editForm.get('versionName')!.invalid && (editForm.get('versionName')!.dirty || editForm.get('versionName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('versionName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            [(ngModel)]="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.comment" for="field_comment">Comment</label>
+          <input
+            type="text"
+            class="form-control"
+            name="comment"
+            [(ngModel)]="comment"
+            id="field_comment"
+            data-cy="comment"
+            formControlName="comment"
+          />
+        </div>
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionApplicable" for="field_versionApplicable"-->
+        <!--            >Version Applicable</label-->
+        <!--          >-->
+        <!--          <select-->
+        <!--            class="form-control"-->
+        <!--            id="field_versionApplicable"-->
+        <!--            data-cy="versionApplicable"-->
+        <!--            name="versionApplicable"-->
+        <!--            formControlName="versionApplicable"-->
+        <!--          >-->
+        <!--            <option [ngValue]="null"></option>-->
+        <!--            <option-->
+        <!--              [ngValue]="-->
+        <!--                versionApplicableOption.id === editForm.get('versionApplicable')!.value?.id-->
+        <!--                  ? editForm.get('versionApplicable')!.value-->
+        <!--                  : versionApplicableOption-->
+        <!--              "-->
+        <!--              *ngFor="let versionApplicableOption of versionApplicablesSharedCollection; trackBy: trackVersionApplicableById"-->
+        <!--            >-->
+        <!--              {{ versionApplicableOption.nameVersionApplicable }}-->
+        <!--            </option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionCible" for="field_versionCible">Version Cible</label>-->
+        <!--          <select class="form-control" id="field_versionCible" data-cy="versionCible" name="versionCible" formControlName="versionCible">-->
+        <!--            <option [ngValue]="null"></option>-->
+        <!--            <option-->
+        <!--              [ngValue]="-->
+        <!--                versionCibleOption.id === editForm.get('versionCible')!.value?.id ? editForm.get('versionCible')!.value : versionCibleOption-->
+        <!--              "-->
+        <!--              *ngFor="let versionCibleOption of versionCiblesSharedCollection; trackBy: trackVersionCibleById"-->
+        <!--            >-->
+        <!--              {{ versionCibleOption.nameVersionCible}}-->
+        <!--            </option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionApplicable" for="field_versionApplicable">
+            Version Applicable Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="versionApplicable"
+            [(ngModel)]="versionApplicableName"
+            id="field_versionApplicable"
+            data-cy="versionApplicable"
+            formControlName="versionApplicable"
+          />
+          <div
+            *ngIf="
+              editForm.get('versionApplicable')!.invalid &&
+              (editForm.get('versionApplicable')!.dirty || editForm.get('versionApplicable')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('versionApplicable')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.update.versionCible" for="field_versionApplicable"
+            >Version Cible Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="versionCible"
+            [(ngModel)]="versionCibleName"
+            id="field_versionCible"
+            data-cy="versionCible"
+            formControlName="versionCible"
+          />
+          <div
+            *ngIf="editForm.get('versionCible')!.invalid && (editForm.get('versionCible')!.dirty || editForm.get('versionCible')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('versionCible')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save" routerLink="/update">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

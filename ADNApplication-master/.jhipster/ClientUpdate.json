@@ -1,0 +1,22 @@
+{
+  "changelogDate": "20220629084159",
+  "fields": [],
+  "name": "ClientUpdate",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nameClient",
+      "otherEntityName": "client",
+      "relationshipName": "client",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "versionName",
+      "otherEntityName": "update",
+      "relationshipName": "update",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

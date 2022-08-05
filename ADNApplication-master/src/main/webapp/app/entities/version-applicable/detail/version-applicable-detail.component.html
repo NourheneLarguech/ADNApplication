@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="versionApplicable">
+      <h2 data-cy="versionApplicableDetailsHeading">
+        <span jhiTranslate="adnApplicationApp.versionApplicable.detail.title">Version Applicable</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <!--        <dt><span jhiTranslate="global.field.id">ID</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ versionApplicable.id }}</span>-->
+        <!--        </dd>-->
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.uidVersionApplicable">Uid Version Applicable</span></dt>
+        <dd>
+          <span>{{ versionApplicable.uidVersionApplicable }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.nameVersionApplicable">Name Version Applicable</span></dt>
+        <dd>
+          <span>{{ versionApplicable.nameVersionApplicable }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.comment">Comment</span></dt>
+        <dd>
+          <span>{{ versionApplicable.comment }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.description">Description</span></dt>
+        <dd>
+          <span>{{ versionApplicable.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.createDate">Create Date</span></dt>
+        <dd>
+          <span>{{ versionApplicable.createDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.modifyBy">Modify By</span></dt>
+        <dd>
+          <span>{{ versionApplicable.modifyBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.modifidDate">Modifid Date</span></dt>
+        <dd>
+          <span>{{ versionApplicable.modifidDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionApplicable.product">Product</span></dt>
+        <dd>
+          <div *ngIf="versionApplicable.product">
+            <a [routerLink]="['/product', versionApplicable.product?.id, 'view']">{{ versionApplicable.product?.nameProduct }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/version-applicable', versionApplicable.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

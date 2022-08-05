@@ -19,7 +19,7 @@
     "enableHibernateCache": true,
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
-    "entities": ["Product", "Update", "VersionApplicable", "VersionCible", "Client", "ClientUpdate"],
+    "entities": ["Product", "Update", "VersionApplicable", "VersionCible", "Client", "ClientUpdate", "Link"],
     "entitySuffix": "",
     "gitCompany": "",
     "jhiPrefix": "jhi",

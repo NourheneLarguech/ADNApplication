@@ -1,0 +1,33 @@
+{
+  "adnApplicationApp": {
+    "client": {
+      "home": {
+        "title": "Clients",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Client",
+        "createOrEditLabel": "Créer un nouveau client",
+        "notFound": "Aucun Client trouvé"
+      },
+      "created": "Un nouveau Client a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Client avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Client avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Client {{ id }} ?"
+      },
+      "detail": {
+        "title": "Client"
+      },
+      "id": "ID",
+      "uidClient": "Uid Client",
+      "nameClient": "Nom du client",
+      "productClient": "Profil",
+      "comment": "Commentaire",
+      "description": "Description",
+      "statut": "Statut",
+      "client_product": "Type du produit",
+      "versionApplicable": "Version Applicable",
+      "versionCible": "Version",
+      "profil": "Nom de profil"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="versionCible">
+      <h2 data-cy="versionCibleDetailsHeading"><span jhiTranslate="adnApplicationApp.versionCible.detail.title">Version Cible</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <!--        <dt><span jhiTranslate="global.field.id">ID</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ versionCible.id }}</span>-->
+        <!--        </dd>-->
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.uidVersionCible">Uid Version Cible</span></dt>
+        <dd>
+          <span>{{ versionCible.uidVersionCible }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.nameVersionCible">Name Version Cible</span></dt>
+        <dd>
+          <span>{{ versionCible.nameVersionCible }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.comment">Comment</span></dt>
+        <dd>
+          <span>{{ versionCible.comment }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.description">Description</span></dt>
+        <dd>
+          <span>{{ versionCible.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.createDate">Create Date</span></dt>
+        <dd>
+          <span>{{ versionCible.createDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.modifyBy">Modify By</span></dt>
+        <dd>
+          <span>{{ versionCible.modifyBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.modifidDate">Modifid Date</span></dt>
+        <dd>
+          <span>{{ versionCible.modifidDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.versionCible.product">Product</span></dt>
+        <dd>
+          <div *ngIf="versionCible.product">
+            <a [routerLink]="['/product', versionCible.product?.id, 'view']">{{ versionCible.product?.nameProduct }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/version-cible', versionCible.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

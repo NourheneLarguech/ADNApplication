@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="adnApplicationApp.product.home.createOrEditLabel">
+        Create or edit a Product
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <!--        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">-->
+        <!--          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>-->
+        <!--          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.product.uidProduct" for="field_uidProduct">Uid Product</label>
+          <input
+            type="text"
+            class="form-control"
+            name="uidProduct"
+            id="field_uidProduct"
+            data-cy="uidProduct"
+            formControlName="uidProduct"
+          />
+          <div *ngIf="editForm.get('uidProduct')!.invalid && (editForm.get('uidProduct')!.dirty || editForm.get('uidProduct')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('uidProduct')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.product.nameProduct" for="field_nameProduct">Name Product</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameProduct"
+            id="field_nameProduct"
+            data-cy="nameProduct"
+            formControlName="nameProduct"
+          />
+          <div *ngIf="editForm.get('nameProduct')!.invalid && (editForm.get('nameProduct')!.dirty || editForm.get('nameProduct')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nameProduct')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

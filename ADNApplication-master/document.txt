@@ -1,0 +1,18 @@
+CREATE TABLE Client (
+    id bigint primary key ,
+    uid_client varchar(255),
+    name_client varchar(255),
+   product_client varchar(255),
+  comment varchar(255),
+description varchar(255),
+statut varchar(255),
+client_product_id bigint,
+version_applicable_id bigint,
+version_cible_id bigint,
+    CONSTRAINT fk_client__client_product_id FOREIGN KEY (client_product_id)
+    REFERENCES product(id),
+    CONSTRAINT fk_client__version_applicable_id FOREIGN KEY (version_applicable_id)
+    REFERENCES version_applicable(id),
+    CONSTRAINT fk_client__version_cible_id FOREIGN KEY (version_cible_id)
+    REFERENCES version_cible(id)
+);

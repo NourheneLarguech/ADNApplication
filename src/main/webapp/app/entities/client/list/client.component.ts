@@ -20,8 +20,12 @@ export class ClientComponent implements OnInit {
   constructor(protected clientService: ClientService, protected modalService: NgbModal) {}
   ResGetUpdate?: any;
   errorMessage?: any;
+  profilUser?: any;
+  links?: any;
+  link?: string;
   loadAll(): void {
     this.isLoading = true;
+    this.linkUser();
 
     this.clientService.query().subscribe({
       next: (res: HttpResponse<IClient[]>) => {
@@ -33,7 +37,21 @@ export class ClientComponent implements OnInit {
       },
     });
   }
-
+  linkUser(): void {
+    this.clientService.profilUser().subscribe(profilUser => {
+      this.profilUser = profilUser;
+    });
+    this.clientService.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        console.log(link);
+        if (this.profilUser.id === link.user.id) {
+          this.link = link.nameLink;
+          console.log(link.nameLink);
+        }
+      }
+    });
+  }
   ngOnInit(): void {
     this.loadAll();
   }
@@ -70,12 +88,12 @@ export class ClientComponent implements OnInit {
   changeStatut(client: IClient): void {
     this.clientService.getUpdate(client).subscribe(data => {
       this.ResGetUpdate = data.updateFiles;
-      console.log(this.ResGetUpdate);
+      console.log('test', this.ResGetUpdate);
       if (this.ResGetUpdate.length === 0) {
         //console.log("longeur 0")
         this.afficher();
       } else {
-        this.clientService.EditStatut(client).subscribe(
+        this.clientService.EditStatut(client, this.link).subscribe(
           ResEditStatut => {
             //this.statut = ResEditStatut;
             this.updateNextStatut(ResEditStatut, client.id);

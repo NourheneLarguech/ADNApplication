@@ -1,0 +1,32 @@
+{
+  "adnApplicationApp": {
+    "versionApplicable": {
+      "home": {
+        "title": "VersionApplicables",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Version Applicable",
+        "createOrEditLabel": "Créer ou éditer un Version Applicable",
+        "notFound": "Aucun Version Applicable trouvé"
+      },
+      "created": "Un nouveau Version Applicable a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Version Applicable avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Version Applicable avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Version Applicable {{ id }} ?"
+      },
+      "detail": {
+        "title": "Version Applicable"
+      },
+      "id": "ID",
+      "uidVersionApplicable": "Uid Version Applicable",
+      "nameVersionApplicable": "Name Version Applicable",
+      "comment": "Comment",
+      "description": "Description",
+      "createDate": "Create Date",
+      "modifyBy": "Modify By",
+      "modifidDate": "Modifid Date",
+      "update": "Update",
+      "product": "Product"
+    }
+  }
+}

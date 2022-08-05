@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate [formGroup]="editForm">
+      <h2 id="jhi-client-heading" data-cy="ClientCreateUpdateHeading">Créer une nouvelle version</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" jhiTranslate="adnApplicationApp.client.uidClient" for="field_uidClient">Uid Client</label>-->
+        <!--          <input type="text" class="form-control" name="uidClient" id="field_uidClient" data-cy="uidClient" formControlName="uidClient" />-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.nameClient" for="field_nameClient">Name Client</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameClient"
+            id="field_nameClient"
+            data-cy="nameClient"
+            formControlName="nameClient"
+            [readonly]="true"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.statut" for="field_statut">Statut</label>
+          <select class="form-control" name="statut" formControlName="statut" id="field_statut" data-cy="statut">
+            <option [ngValue]="null">{{ 'adnApplicationApp.Statut.null' | translate }}</option>
+            <option *ngFor="let statut of statutValues" [value]="statut">{{ 'adnApplicationApp.Statut.' + statut | translate }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.client_product" for="field_client_product">Client Product</label>
+          <select class="form-control" id="field_client_product" data-cy="client_product" formControlName="client_product">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                productOption.id === editForm.get('client_product')!.value?.id ? editForm.get('client_product')!.value : productOption
+              "
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.nameProduct }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.client.productClient" for="field_productClient">Profil</label>
+          <input
+            type="text"
+            class="form-control"
+            name="productClient"
+            id="field_productClient"
+            data-cy="productClient"
+            formControlName="productClient"
+          />
+        </div>
+      </div>
+      <h2 data-cy="productDetailsHeading">
+        <span jhiTranslate="adnApplicationApp.product.titlePackageProduit">Les packages de produit</span>
+      </h2>
+
+      <hr />
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.calculatorName">Calculator Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.versionName">Version Name</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.statut">Statut</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.comment">Comment</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.createBy">Create By</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.createDate">Create Date</span></th>
+
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.actualStatus">Droit d'utilisation</span></th>
+            <th scope="col"><span jhiTranslate="adnApplicationApp.update.ChangeStatus">Changer Statut</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let getUpdate of resGetUpdate; let i = index" data-cy="entityTable">
+            <td>{{ NameCalculator(getUpdate.versionName) }}</td>
+            <td>{{ NameVersion(getUpdate.versionName) }}</td>
+            <td>{{ getUpdate.statut }}</td>
+            <td>{{ getUpdate.comment }}</td>
+            <td>{{ getUpdate.versionApplicable?.modifyBy }}</td>
+            <td>{{ getUpdate.versionApplicable?.modifidDate }}</td>
+            <td>
+              <span class="{{ droitUtilisateur(getUpdate.id) === true ? 'Autorise' : 'NonAutorise' }}">{{
+                droitUtilisateur(getUpdate.id) === true ? 'Autorisé' : 'Non Autorisé'
+              }}</span>
+            </td>
+
+            <td>
+              <button class="btn btn-info" (click)="toggleEvent(i)">
+                {{ list[i] === true ? 'Autorisé' : 'Non Autorisé' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button (click)="save()" class="btn btn-primary" routerLink="client"><fa-icon icon="save"></fa-icon>&nbsp;</button>
+        <button
+          type="button"
+          id="cancel-save"
+          data-cy="entityCreateCancelButton"
+          class="btn btn-secondary me-2 btn-sm"
+          placement="bottom"
+          ngbTooltip="Cancel"
+          (click)="previousState()"
+        >
+          <fa-icon icon="pencil-alt"></fa-icon>
+        </button>
+
+        <!--                <button type="submit"-->
+        <!--                        id="save-entity"-->
+        <!--                        data-cy="entityCreateSaveButton"-->
+        <!--                        [disabled]="editForm.invalid || isSaving" class="btn btn-primary me-2 btn-sm" placement="bottom" ngbTooltip="Save" >-->
+        <!--                    <fa-icon icon="save"></fa-icon>-->
+        <!--                </button>-->
+      </div>
+    </form>
+  </div>
+</div>

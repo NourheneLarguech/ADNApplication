@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="clientUpdate">
+      <h2 data-cy="clientUpdateDetailsHeading"><span jhiTranslate="adnApplicationApp.clientUpdate.detail.title">Client Update</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ clientUpdate.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.clientUpdate.client">Client</span></dt>
+        <dd>
+          <div *ngIf="clientUpdate.client">
+            <a [routerLink]="['/client', clientUpdate.client?.id, 'view']">{{ clientUpdate.client?.nameClient }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="adnApplicationApp.clientUpdate.update">Update</span></dt>
+        <dd>
+          <div *ngIf="clientUpdate.update">
+            <a [routerLink]="['/update', clientUpdate.update?.id, 'view']">{{ clientUpdate.update?.versionName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/client-update', clientUpdate.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

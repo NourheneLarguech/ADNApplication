@@ -1,0 +1,59 @@
+{
+  "applications": "*",
+  "changelogDate": "20220504140217",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "version_cible",
+  "fields": [
+    {
+      "fieldName": "uidVersionCible",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nameVersionCible",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifyBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifidDate",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "VersionCible",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "update",
+      "otherEntityRelationshipName": "versionCible",
+      "relationshipName": "update",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "versionCible",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

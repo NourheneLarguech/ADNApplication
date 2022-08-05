@@ -17,11 +17,20 @@ export class ClientService {
   observable!: Observable<any>;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/clients');
   nameClient?: string;
-
+  link?: string;
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {
     this.profil = new BehaviorSubject<any>('');
     this.observable = this.profil.asObservable();
   }
+  profilUser(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/account', { headers: { authorization: `Bearer ${token}` } });
+  }
+  getLink(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/links', { headers: { authorization: `Bearer ${token}` } });
+  }
+
   addPermissionClient(produit: any, client: IClient): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
     //console.log('token :'+ token)
@@ -418,13 +427,14 @@ export class ClientService {
     const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
     return this.http.get(`https://test.actiaadn.com/api/v1/update/${uidClient}`, { headers: { authorization: token } });
   }
-  EditStatut(client: IClient): Observable<any> {
+  EditStatut(client: IClient, link: string | undefined): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     // console.log("*****");
     const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
     //console.error('test uiid0 ',uiUpdate);
+    const linkUser: string | undefined = link !== undefined ? link : '';
     return this.http.patch<any>(
-      `https://test.actiaadn.com/api/v1/update/${uidClient}`,
+      `${linkUser}/api/v1/update/${uidClient}`,
       {},
       { headers: { authorization: token }, responseType: 'text' as 'json' }
     );

@@ -1,0 +1,25 @@
+{
+  "adnApplicationApp": {
+    "clientUpdate": {
+      "home": {
+        "title": "Client Updates",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Client Update",
+        "createOrEditLabel": "Create or edit a Client Update",
+        "notFound": "No Client Updates found"
+      },
+      "created": "A new Client Update is created with identifier {{ param }}",
+      "updated": "A Client Update is updated with identifier {{ param }}",
+      "deleted": "A Client Update is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Client Update {{ id }}?"
+      },
+      "detail": {
+        "title": "Client Update"
+      },
+      "id": "ID",
+      "client": "Client",
+      "update": "Update"
+    }
+  }
+}

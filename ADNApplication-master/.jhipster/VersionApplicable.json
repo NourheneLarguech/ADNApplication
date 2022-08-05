@@ -1,0 +1,59 @@
+{
+  "applications": "*",
+  "changelogDate": "20220504140216",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "version_applicable",
+  "fields": [
+    {
+      "fieldName": "uidVersionApplicable",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nameVersionApplicable",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifyBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifidDate",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "VersionApplicable",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "update",
+      "otherEntityRelationshipName": "versionApplicable",
+      "relationshipName": "update",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "versionApplicable",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

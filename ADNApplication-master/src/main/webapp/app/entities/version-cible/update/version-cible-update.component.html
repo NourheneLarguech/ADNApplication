@@ -1,0 +1,153 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-version-cible-heading"
+        data-cy="VersionCibleCreateUpdateHeading"
+        jhiTranslate="adnApplicationApp.versionCible.home.createOrEditLabel"
+      >
+        Create or edit a Version Cible
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <!--        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">-->
+        <!--          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>-->
+        <!--          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />-->
+        <!--        </div>-->
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.uidVersionCible" for="field_uidVersionCible"
+            >Uid Version Cible</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="uidVersionCible"
+            id="field_uidVersionCible"
+            data-cy="uidVersionCible"
+            formControlName="uidVersionCible"
+          />
+          <div
+            *ngIf="
+              editForm.get('uidVersionCible')!.invalid &&
+              (editForm.get('uidVersionCible')!.dirty || editForm.get('uidVersionCible')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('uidVersionCible')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.nameVersionCible" for="field_nameVersionCible"
+            >Name Version Cible</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nameVersionCible"
+            id="field_nameVersionCible"
+            data-cy="nameVersionCible"
+            formControlName="nameVersionCible"
+          />
+          <div
+            *ngIf="
+              editForm.get('nameVersionCible')!.invalid &&
+              (editForm.get('nameVersionCible')!.dirty || editForm.get('nameVersionCible')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nameVersionCible')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.createDate" for="field_createDate">Create Date</label>
+          <input
+            type="text"
+            class="form-control"
+            name="createDate"
+            id="field_createDate"
+            data-cy="createDate"
+            formControlName="createDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.modifyBy" for="field_modifyBy">Modify By</label>
+          <input type="text" class="form-control" name="modifyBy" id="field_modifyBy" data-cy="modifyBy" formControlName="modifyBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.modifidDate" for="field_modifidDate">Modifid Date</label>
+          <input
+            type="text"
+            class="form-control"
+            name="modifidDate"
+            id="field_modifidDate"
+            data-cy="modifidDate"
+            formControlName="modifidDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="adnApplicationApp.versionCible.product" for="field_product">Product</label>
+          <select class="form-control" id="field_product" data-cy="product" name="product" formControlName="product">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.nameProduct }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
