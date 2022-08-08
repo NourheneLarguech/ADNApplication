@@ -123,8 +123,11 @@
         </tbody>
       </table>
       <div>
-        <button (click)="save()" class="btn btn-primary" routerLink="client"><fa-icon icon="save"></fa-icon>&nbsp;</button>
+        <button (click)="save()" class="btn btn-primary me-2 btn-sm" routerLink="/client" ngbTooltip="sauvegarder">
+          <fa-icon icon="save"></fa-icon>&nbsp;
+        </button>
         <button
+          class="btn btn-secondary"
           type="button"
           id="cancel-save"
           data-cy="entityCreateCancelButton"
@@ -133,7 +136,7 @@
           ngbTooltip="Cancel"
           (click)="previousState()"
         >
-          <fa-icon icon="pencil-alt"></fa-icon>
+          <fa-icon icon="ban"></fa-icon>
         </button>
 
         <!--                <button type="submit"-->

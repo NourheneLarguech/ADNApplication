@@ -49,6 +49,9 @@ export class EditVersionComponent implements OnInit {
   versionApplicableADN?: any;
   versionCibleADN?: any;
   va?: any;
+  profilUser?: any;
+  links?: any;
+  link?: string;
   editForm = this.fb.group({
     id: [],
     uidClient: [],
@@ -73,6 +76,7 @@ export class EditVersionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.linkUser();
     this.activatedRoute.data.subscribe(({ client }) => {
       this.updateForm(client);
 
@@ -91,6 +95,21 @@ export class EditVersionComponent implements OnInit {
       });
     });
   }
+  linkUser(): void {
+    this.clientService.profilUser().subscribe(profilUser => {
+      this.profilUser = profilUser;
+    });
+    this.clientService.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        if (this.profilUser.id === link.user.id) {
+          this.link = link.nameLink;
+          //  console.log(link.nameLink);
+        }
+      }
+    });
+  }
+
   droitUtilisateur(idUpdate: number): any {
     this.nouvelStatut = false;
     const client = this.createFromForm();
@@ -104,22 +123,22 @@ export class EditVersionComponent implements OnInit {
 
   toggleEvent(id: number): void {
     this.list[id] = !this.list[id];
-    console.log(id);
+    //  console.log(id);
     this.addToMemoryFlag = !this.addToMemoryFlag;
   }
   add(produit: any, client: IClient): void {
     console.log('add');
     this.clientService.addPermissionClient(produit, client).subscribe(resAddPermission => {
-      console.log(resAddPermission);
+      // console.log(resAddPermission);
     });
   }
   delete(produit: any, client: IClient): void {
-    console.log('delete');
+    // console.log('delete');
     for (const permission of this.permissionClient) {
       if (permission.client.id === client.id && permission.update.id === produit.id) {
         this.clientService.deletePermissionClient(permission.id).subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
           },
           error => {
             console.error(error);
@@ -164,23 +183,23 @@ export class EditVersionComponent implements OnInit {
     if (client.versionApplicable === null) {
       this.newVersion = this.convertirVersion(client?.productClient);
 
-      this.clientService.createVersion2(client, this.newVersion).subscribe(version => {
-        console.log(version);
+      this.clientService.createVersion2(client, this.newVersion, this.link).subscribe(version => {
+        console.log(this.link);
         this.clientService.createVersionApplicable(client, this.todayString, version.createdBy).subscribe(ResVersApplicable => {
-          console.log(ResVersApplicable);
+          // console.log(ResVersApplicable);
           this.versionApplicable = ResVersApplicable;
         });
         this.clientService
           .createVersionCible(client, this.todayString, version.uid, version.name, version.createdBy)
           .subscribe(versionCible => {
-            console.log(versionCible);
+            // console.log(versionCible);
             this.versionCible = versionCible;
             this.name = this.functionNameVersion(client.nameClient, version.name);
-            console.log(this.functionNameVersion(client.nameClient, version.name));
+            // console.log(this.functionNameVersion(client.nameClient, version.name));
             this.clientService
-              .createUpdateADN(client, client.uidClient, version.uid, client.nameClient, version.name, this.name)
+              .createUpdateADN(client, client.uidClient, version.uid, client.nameClient, version.name, this.name, this.link)
               .subscribe(resUpdate => {
-                console.log(resUpdate);
+                // console.log(resUpdate);
                 this.clientService
                   .UpdateClient(
                     client,
@@ -195,7 +214,7 @@ export class EditVersionComponent implements OnInit {
                     this.todayString
                   )
                   .subscribe(resUpdate => {
-                    console.log(resUpdate);
+                    // console.log(resUpdate);
                   });
               });
           });
@@ -205,13 +224,13 @@ export class EditVersionComponent implements OnInit {
         this.va = va;
       });
       this.newVersion = this.convertirVersion2(client.versionCible?.nameVersionCible);
-      this.clientService.createVersion2(client, this.newVersion).subscribe(version => {
-        console.log(version);
+      this.clientService.createVersion2(client, this.newVersion, this.link).subscribe(version => {
+        //console.log(version);
 
         this.clientService
           .createVersionCible(client, this.todayString, version.uid, version.name, version.createdBy)
           .subscribe(versionCible => {
-            console.log(versionCible);
+            // console.log(versionCible);
             this.versionCible = versionCible;
             this.name = this.functionNameVersion(client.versionCible?.nameVersionCible, version.name);
 
@@ -222,10 +241,11 @@ export class EditVersionComponent implements OnInit {
                 version.uid,
                 client.versionCible?.nameVersionCible,
                 version.name,
-                this.name
+                this.name,
+                this.link
               )
               .subscribe(resUpdate => {
-                console.log(resUpdate);
+                // console.log(resUpdate);
                 this.clientService
                   .UpdateClient(
                     client,
@@ -240,18 +260,18 @@ export class EditVersionComponent implements OnInit {
                     this.todayString
                   )
                   .subscribe(resUpdate => {
-                    console.log(resUpdate);
+                    // console.log(resUpdate);
                   });
               });
           });
       });
     }
 
-    this.clientService.GetVersion(client).subscribe(data => {
+    this.clientService.GetVersion(client, this.link).subscribe(data => {
       // this.versionName=data;
       let i = 0;
       while (data.versions[i].name !== undefined) {
-        console.log(data.versions[i].name);
+        // console.log(data.versions[i].name);
         i++;
       }
     });
@@ -282,8 +302,8 @@ export class EditVersionComponent implements OnInit {
 
     this.verApp = nameVersionApplicable?.substring(nameVersionApplicable?.length - 1);
     this.verCib = nameVersionCible?.substring(nameVersionCible?.length - 1);
-    console.log('nn');
-    console.log(nameVersionCible?.substring(nameVersionCible?.length - 1, nameVersionCible?.length - 1));
+    // console.log('nn');
+    // console.log(nameVersionCible?.substring(nameVersionCible?.length - 1, nameVersionCible?.length - 1));
     if (this.verApp !== undefined && this.verCib !== undefined) {
       this.name = name?.concat('_ActimuxIndexV').concat(this.verApp.toString()).concat('toV').concat(this.verCib.toString());
     }

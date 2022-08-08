@@ -18,6 +18,7 @@ export class ClientService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/clients');
   nameClient?: string;
   link?: string;
+  linkUser?: string;
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {
     this.profil = new BehaviorSubject<any>('');
     this.observable = this.profil.asObservable();
@@ -146,10 +147,11 @@ export class ClientService {
   shareData(newValue: any): void {
     this.profil.next(newValue);
   }
-  GetVersion(client: IClient): Observable<any> {
+  GetVersion(client: IClient, link?: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    const linkUser: string | undefined = link !== undefined ? link : '';
     const uid: string = client.client_product?.uidProduct === undefined ? ' ' : client.client_product?.uidProduct?.toString();
-    return this.http.get<any>(`https://test.actiaadn.com/api/v1/product/${uid}`, { headers: { authorization: token } });
+    return this.http.get<any>(`${linkUser}/api/v1/product/${uid}`, { headers: { authorization: token } });
   }
   createV0ADN(client: IClient): Observable<any> {
     console.log('addVersionApplicable');
@@ -186,20 +188,12 @@ export class ClientService {
       { headers: { authorization: `Bearer ${token}` } }
     );
   }
-  createVersion2(client: IClient, newVersion?: string): Observable<any> {
+  createVersion2(client: IClient, newVersion?: string, link?: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
-
-    // let ver = client?.productClient?.substring(client.productClient?.length-1,client.productClient?.length-1)
-    // Number(ver);
-    // if(ver!==undefined){
-    // ver=ver+1;
-    // ver=ver.toString()
-    //  this.nameClient=client?.productClient?.concat('_ActimuxIndexV').concat(ver)
-    // console.log('token :' + this.nameClient);
-    // console.log(client?.productClient?.concat('_ActimuxIndexV').concat(ver));}
-
+    const linkUser: string | undefined = link !== undefined ? link : '';
+    console.log(linkUser);
     return this.http.post<any>(
-      'https://test.actiaadn.com/api/v1/version/',
+      `${linkUser}/api/v1/version/`,
       { name: newVersion, comment: client.comment, description: client.description, productUid: client.client_product?.uidProduct },
       { headers: { authorization: token } }
     );
@@ -319,12 +313,13 @@ export class ClientService {
     uidCible?: string | null,
     nameVersionApplicable?: string | null,
     nameVersionCible?: string | null,
-    name?: string | null
+    name?: string | null,
+    link?: string
   ): Observable<any> {
     console.log('createUpload');
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     return this.http.post<any>(
-      'https://test.actiaadn.com/api/v1/update/',
+      `${link}/api/v1/update/`,
       {
         titles: {},
         descriptions: {},
