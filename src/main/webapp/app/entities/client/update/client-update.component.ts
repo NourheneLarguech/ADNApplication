@@ -32,6 +32,9 @@ export class ClientUpdateComponent implements OnInit {
   uidproduct?: string;
   profil?: string;
   pf = '';
+  links?: any;
+  profilUser?: any;
+  link?: string;
   todayString = new Date().toDateString();
   editForm = this.fb.group({
     id: [],
@@ -64,17 +67,32 @@ export class ClientUpdateComponent implements OnInit {
     this.clientService.observable.subscribe(res => {
       this.profil = res;
       console.error(res);
-      this.clientService.viewProfil(this.uidproduct).subscribe(profil => {
+      this.clientService.viewProfil(this.uidproduct, this.link).subscribe(profil => {
         console.log(profil.profiles);
         this.profilProduct = profil.profiles;
         this.pf = res;
       });
     });
   }
+  linkUser(): void {
+    this.clientService.profilUser().subscribe(profilUser => {
+      this.profilUser = profilUser;
+    });
+    this.clientService.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        console.log(link);
+        if (this.profilUser.id === link.user.id) {
+          this.link = link.nameLink;
+          console.log(link.nameLink);
+        }
+      }
+    });
+  }
   onChange(event: any): void {
     this.uidproduct = event.uidProduct;
     console.log(this.uidproduct);
-    this.clientService.viewProfil(this.uidproduct).subscribe(profil => {
+    this.clientService.viewProfil(this.uidproduct, this.link).subscribe(profil => {
       console.log(profil.profiles);
       this.profilProduct = profil.profiles;
     });
@@ -96,7 +114,7 @@ export class ClientUpdateComponent implements OnInit {
     this.isSaving = true;
     const client = this.createFromForm();
     // if (client.id !== undefined) {
-    this.clientService.createV0ADN(client).subscribe(version0 => {
+    this.clientService.createV0ADN(client, this.link).subscribe(version0 => {
       console.log(version0);
       this.version0 = version0;
       this.clientService.createV0(client, this.version0).subscribe(

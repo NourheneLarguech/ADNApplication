@@ -31,6 +31,7 @@ export class UpdateComponent implements OnInit {
   constructor(protected updateService: UpdateService, protected modalService: NgbModal) {}
 
   loadAll(): void {
+    this.updateService.getLink();
     this.isLoading = true;
     let nameCalculator = '';
     this.updateService.query().subscribe({

@@ -86,7 +86,7 @@ export class ClientComponent implements OnInit {
     });
   }
   changeStatut(client: IClient): void {
-    this.clientService.getUpdate(client).subscribe(data => {
+    this.clientService.getUpdate(client, this.link).subscribe(data => {
       this.ResGetUpdate = data.updateFiles;
       console.log('test', this.ResGetUpdate);
       if (this.ResGetUpdate.length === 0) {

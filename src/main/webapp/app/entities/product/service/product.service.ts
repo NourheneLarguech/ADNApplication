@@ -13,21 +13,42 @@ export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');
-
+  links?: any;
+  profilUsr?: any;
+  link?: string;
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
- getProduct(product:IProduct):Observable<any>{
-   const token: string | null= `${String(localStorage.getItem('PlatformAPIToken'))}`;
-   const uidProduct= product.uidProduct !==undefined?product.uidProduct:'';
-    return this.http.get<any>(`https://test.actiaadn.com/api/v1/product/simple/${uidProduct}`,
-       {headers:{"authorization":token}})
+  getProduct(product: IProduct, link?: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    const uidProduct = product.uidProduct !== undefined ? product.uidProduct : '';
+    return this.http.get<any>(`${this.link}/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
   }
-  getUpdate():Observable<any>{
-      const token: string | null= `${String(localStorage.getItem('authenticationToken'))}`;
-      return this.http.get<any>(`http://localhost:8080/api/updates`,
-          {headers:{"authorization": `Bearer ${token}`}})
-
+  getUpdate(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>(`http://localhost:8080/api/updates`, { headers: { authorization: `Bearer ${token}` } });
   }
-
+  profilUser(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/account', { headers: { authorization: `Bearer ${token}` } });
+  }
+  getLink(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/links', { headers: { authorization: `Bearer ${token}` } });
+  }
+  linkUser(): void {
+    this.profilUser().subscribe(profilUser => {
+      this.profilUsr = profilUser;
+    });
+    this.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        console.log(link);
+        if (this.profilUsr.id === link.user.id) {
+          this.link = link.nameLink;
+          console.log(link.nameLink);
+        }
+      }
+    });
+  }
   create(product: IProduct): Observable<EntityResponseType> {
     return this.http.post<IProduct>(this.resourceUrl, product, { observe: 'response' });
   }

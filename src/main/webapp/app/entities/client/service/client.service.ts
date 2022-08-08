@@ -75,16 +75,18 @@ export class ClientService {
   //             "productUid":update.product?.uidProduct}
   //         ,{headers:{"authorization":token}})
   // }
-  viewProfil(uidProduct?: string): Observable<any> {
+  viewProfil(uidProduct?: string, link?: string): Observable<any> {
+    const linkUser: string | undefined = link !== undefined ? link : '';
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     uidProduct = uidProduct !== undefined ? uidProduct : '';
 
-    return this.http.get<any>(`https://test.actiaadn.com/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
+    return this.http.get<any>(`${linkUser}/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
   }
-  addProfil(client?: IClient, profil?: string, listProfil?: string[][]): Observable<any> {
+  addProfil(client?: IClient, profil?: string, listProfil?: string[][], link?: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    const linkUser: string | undefined = link !== undefined ? link : '';
     return this.http.put<any>(
-      'https://test.actiaadn.com/api/v1/product/',
+      `${linkUser}/api/v1/product/`,
       {
         versions: [],
         updates: [],
@@ -153,12 +155,13 @@ export class ClientService {
     const uid: string = client.client_product?.uidProduct === undefined ? ' ' : client.client_product?.uidProduct?.toString();
     return this.http.get<any>(`${linkUser}/api/v1/product/${uid}`, { headers: { authorization: token } });
   }
-  createV0ADN(client: IClient): Observable<any> {
+  createV0ADN(client: IClient, link?: string): Observable<any> {
     console.log('addVersionApplicable');
+    const linkUser: string | undefined = link !== undefined ? link : '';
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     const nameVersion = client?.productClient?.concat('_ActimuxIndexV0');
     return this.http.post<any>(
-      'https://test.actiaadn.com/api/v1/version/',
+      `${linkUser}/api/v1/version/`,
       { name: nameVersion, comment: client.comment, description: client.description, productUid: client.client_product?.uidProduct },
       { headers: { authorization: token } }
     );
@@ -417,10 +420,11 @@ export class ClientService {
       headers: { authorization: `Bearer ${token}` },
     });
   }
-  getUpdate(client: IClient): Observable<any> {
+  getUpdate(client: IClient, link?: string): Observable<any> {
+    const linkUser: string | undefined = link !== undefined ? link : '';
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
-    return this.http.get(`https://test.actiaadn.com/api/v1/update/${uidClient}`, { headers: { authorization: token } });
+    return this.http.get(`${linkUser}/api/v1/update/${uidClient}`, { headers: { authorization: token } });
   }
   EditStatut(client: IClient, link: string | undefined): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;

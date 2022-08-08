@@ -22,6 +22,9 @@ export class ModalComponent {
   uidproduct?: string;
   client?: IClient;
   listProfil?: string[][];
+  links?: any;
+  profilUser?: any;
+  link?: string;
   myGroup = new FormGroup({
     profil: new FormControl(),
   });
@@ -30,6 +33,7 @@ export class ModalComponent {
   constructor(public ngbActiveModal: NgbActiveModal, protected fb: FormBuilder, protected clientService: ClientService) {}
 
   save(): void {
+    this.linkUser();
     const profil = this.myGroup.controls.profil.value;
     //this.profilClient=profil;
     console.log(this.client?.client_product?.uidProduct);
@@ -55,5 +59,20 @@ export class ModalComponent {
   }
   public close(): any {
     this.ngbActiveModal.dismiss();
+  }
+  linkUser(): void {
+    this.clientService.profilUser().subscribe(profilUser => {
+      this.profilUser = profilUser;
+    });
+    this.clientService.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        console.log(link);
+        if (this.profilUser.id === link.user.id) {
+          this.link = link.nameLink;
+          console.log(link.nameLink);
+        }
+      }
+    });
   }
 }
