@@ -9,10 +9,10 @@
       </button>
 
       <button
-              id="jh-create-entity"
-              data-cy="entityCreateButton"
-              class="btn btn-primary jh-create-entity create-version-applicable"
-              [routerLink]="['/version-applicable/new']"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-version-applicable"
+        [routerLink]="['/version-applicable/new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="adnApplicationApp.versionApplicable.home.createLabel"> Create a new Version Applicable </span>
@@ -31,67 +31,67 @@
   <div class="table-responsive" id="entities" *ngIf="versionApplicables && versionApplicables.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-      <tr >
-        <!--          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>-->
-        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.uidVersionApplicable">Uid Version Applicable</span></th>-->
-        <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.nameVersionApplicable">Name Version Applicable</span></th>
-        <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.comment">Comment</span></th>
-        <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.description">Description</span></th>
-        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.createDate">Create Date</span></th>-->
-        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.modifyBy">Modify By</span></th>-->
-        <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.modifidDate">Modifid Date</span></th>
-        <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.product">Product</span></th>-->
-        <th scope="col"></th>
-      </tr>
+        <tr>
+          <!--          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>-->
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.uidVersionApplicable">Uid Version Applicable</span></th>-->
+          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.nameVersionApplicable">Name Version Applicable</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.comment">Comment</span></th>
+          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.description">Description</span></th>
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.createDate">Create Date</span></th>-->
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.modifyBy">Modify By</span></th>-->
+          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.modifidDate">Modifid Date</span></th>
+          <!--          <th scope="col"><span jhiTranslate="adnApplicationApp.versionApplicable.product">Product</span></th>-->
+          <th scope="col"></th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let versionApplicable of versionApplicables " data-cy="entityTable">
-        <!--        <tr *ngFor="let versionApplicable of versionApplicables |filter:searchText" data-cy="entityTable">-->
-        <!--          <td>-->
-        <!--            <a [routerLink]="['/version-applicable', versionApplicable.id, 'view']">{{ versionApplicable.id }}</a>-->
-        <!--          </td>-->
-        <!--          <td>{{ versionApplicable.uidVersionApplicable }}</td>-->
-        <td>{{ versionApplicable.id }}</td>
-        <!--          <td>{{ versionApplicable.nameVersionApplicable }}</td>-->
-        <td>{{ versionApplicable.comment }}</td>
-        <td>{{ versionApplicable.description }}</td>
-        <!--          <td>{{ versionApplicable.createDate }}</td>-->
-        <td>{{ versionApplicable.modifyBy }}</td>
-        <!--          <td>{{ versionApplicable.modifidDate }}</td>-->
-        <!--          <td>-->
-        <!--            <div *ngIf="versionApplicable.product">-->
-        <!--              <a [routerLink]="['/product', versionApplicable.product?.id, 'view']">{{ versionApplicable.product?.id }}</a>-->
-        <!--            </div>-->
-        <!--          </td>-->
-        <td class="text-end">
-          <div class="btn-group">
-            <button
-                    type="submit"
-                    [routerLink]="['/version-applicable', versionApplicable.id, 'view']"
-                    class="btn btn-info btn-sm"
-                    data-cy="entityDetailsButton"
-            >
-              <fa-icon icon="eye"></fa-icon>
-              <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
+        <tr *ngFor="let versionApplicable of versionApplicables" data-cy="entityTable">
+          <!--        <tr *ngFor="let versionApplicable of versionApplicables |filter:searchText" data-cy="entityTable">-->
+          <!--          <td>-->
+          <!--            <a [routerLink]="['/version-applicable', versionApplicable.id, 'view']">{{ versionApplicable.id }}</a>-->
+          <!--          </td>-->
+          <!--          <td>{{ versionApplicable.uidVersionApplicable }}</td>-->
+          <td>{{ versionApplicable.nameVersionApplicable }}</td>
+          <!--          <td>{{ versionApplicable.nameVersionApplicable }}</td>-->
+          <td>{{ versionApplicable.comment }}</td>
+          <td>{{ versionApplicable.description }}</td>
+          <!--          <td>{{ versionApplicable.createDate }}</td>-->
+          <td>{{ versionApplicable.modifyBy }}</td>
+          <!--          <td>{{ versionApplicable.modifidDate }}</td>-->
+          <!--          <td>-->
+          <!--            <div *ngIf="versionApplicable.product">-->
+          <!--              <a [routerLink]="['/product', versionApplicable.product?.id, 'view']">{{ versionApplicable.product?.id }}</a>-->
+          <!--            </div>-->
+          <!--          </td>-->
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/version-applicable', versionApplicable.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
 
-            <button
-                    type="submit"
-                    [routerLink]="['/version-applicable', versionApplicable.id, 'edit']"
-                    class="btn btn-primary btn-sm"
-                    data-cy="entityEditButton"
-            >
-              <fa-icon icon="pencil-alt"></fa-icon>
-              <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-            </button>
+              <button
+                type="submit"
+                [routerLink]="['/version-applicable', versionApplicable.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
 
-            <button type="submit" (click)="delete(versionApplicable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-              <fa-icon icon="times"></fa-icon>
-              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-            </button>
-          </div>
-        </td>
-      </tr>
+              <button type="submit" (click)="delete(versionApplicable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

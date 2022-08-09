@@ -25,7 +25,7 @@ export class ClientComponent implements OnInit {
   link?: string;
   loadAll(): void {
     this.isLoading = true;
-    this.linkUser();
+    this.clientService.linkUser();
 
     this.clientService.query().subscribe({
       next: (res: HttpResponse<IClient[]>) => {
@@ -37,21 +37,7 @@ export class ClientComponent implements OnInit {
       },
     });
   }
-  linkUser(): void {
-    this.clientService.profilUser().subscribe(profilUser => {
-      this.profilUser = profilUser;
-    });
-    this.clientService.getLink().subscribe(links => {
-      this.links = links;
-      for (const link of this.links) {
-        console.log(link);
-        if (this.profilUser.id === link.user.id) {
-          this.link = link.nameLink;
-          console.log(link.nameLink);
-        }
-      }
-    });
-  }
+
   ngOnInit(): void {
     this.loadAll();
   }
@@ -63,12 +49,12 @@ export class ClientComponent implements OnInit {
     return name?.substring(0, name.indexOf('_'));
   }
   version(name?: any): any {
-    console.log(typeof name);
+    // console.log(typeof name);
     if (typeof name === 'string') {
       this.NumVersion = name.substring(name.length - 2, name?.length);
     }
     if (typeof name === 'object') {
-      console.log('else');
+      //console.log('else');
       this.NumVersion = 'V0';
     }
 
@@ -82,18 +68,60 @@ export class ClientComponent implements OnInit {
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
         this.loadAll();
+        this.clientService.getVersionApplicabe().subscribe(VersionApplicable => {
+          console.log(VersionApplicable);
+          for (const versionAPP of VersionApplicable) {
+            if (this.nameClient(versionAPP.nameVersionApplicable) === this.nameClient(client.nameClient)) {
+              this.clientService.deleteVersionApplicable(versionAPP.id).subscribe(deleteverAPP => {
+                console.log(deleteverAPP);
+              });
+            }
+          }
+        });
+
+        this.clientService.getVersionCible().subscribe(VersionCible => {
+          console.log(VersionCible);
+          for (const versionCIB of VersionCible) {
+            if (this.nameClient(versionCIB.nameVersionCible) === this.nameClient(client.nameClient)) {
+              this.clientService.deleteVersionCible(versionCIB.id).subscribe(deleteverCIB => {
+                console.log(deleteverCIB);
+              });
+            }
+          }
+        });
+
+        this.clientService.getVersionADN().subscribe(updateADN => {
+          for (let update of updateADN.updates) {
+            console.log(update.name);
+            if (this.nameClient(update.name) === this.nameClient(client.nameClient)) {
+              this.clientService.deleteUpdateADN(update.uid).subscribe(deleteUpdate => {
+                console.log(deleteUpdate);
+              });
+            }
+          }
+        });
+        this.clientService.getVersionADN().subscribe(versionADN => {
+          for (let version of versionADN.versions) {
+            console.log(version.name);
+            if (this.nameClient(version.name) === this.nameClient(client.nameClient)) {
+              this.clientService.deleteVersionADN(version.uid).subscribe(deleteVersion => {
+                console.log(deleteVersion);
+              });
+            }
+          }
+        });
       }
     });
   }
   changeStatut(client: IClient): void {
-    this.clientService.getUpdate(client, this.link).subscribe(data => {
+    this.clientService.getUpdate(client).subscribe(data => {
       this.ResGetUpdate = data.updateFiles;
       console.log('test', this.ResGetUpdate);
       if (this.ResGetUpdate.length === 0) {
         //console.log("longeur 0")
         this.afficher();
       } else {
-        this.clientService.EditStatut(client, this.link).subscribe(
+        this.clientService.EditStatut(client).subscribe(
           ResEditStatut => {
             //this.statut = ResEditStatut;
             this.updateNextStatut(ResEditStatut, client.id);

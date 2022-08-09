@@ -17,21 +17,24 @@ export class ClientService {
   observable!: Observable<any>;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/clients');
   nameClient?: string;
+
+  links?: any;
+  profilUsr?: any;
   link?: string;
-  linkUser?: string;
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {
     this.profil = new BehaviorSubject<any>('');
     this.observable = this.profil.asObservable();
   }
-  profilUser(): Observable<any> {
+
+  getVersionApplicabe(): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
-    return this.http.get<any>('http://localhost:8080/api/account', { headers: { authorization: `Bearer ${token}` } });
-  }
-  getLink(): Observable<any> {
-    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
-    return this.http.get<any>('http://localhost:8080/api/links', { headers: { authorization: `Bearer ${token}` } });
+    return this.http.get<any>('http://localhost:8080/api/version-applicables', { headers: { authorization: `Bearer ${token}` } });
   }
 
+  getVersionCible(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/version-cibles', { headers: { authorization: `Bearer ${token}` } });
+  }
   addPermissionClient(produit: any, client: IClient): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
     //console.log('token :'+ token)
@@ -75,18 +78,15 @@ export class ClientService {
   //             "productUid":update.product?.uidProduct}
   //         ,{headers:{"authorization":token}})
   // }
-  viewProfil(uidProduct?: string, link?: string): Observable<any> {
-    const linkUser: string | undefined = link !== undefined ? link : '';
+  viewProfil(uidProduct?: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     uidProduct = uidProduct !== undefined ? uidProduct : '';
-
-    return this.http.get<any>(`${linkUser}/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
+    return this.http.get<any>(`${this.link}/api/v1/product/simple/${uidProduct}`, { headers: { authorization: token } });
   }
-  addProfil(client?: IClient, profil?: string, listProfil?: string[][], link?: string): Observable<any> {
+  addProfil(client?: IClient, profil?: string, listProfil?: string[][]): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
-    const linkUser: string | undefined = link !== undefined ? link : '';
     return this.http.put<any>(
-      `${linkUser}/api/v1/product/`,
+      `${this.link}/api/v1/product/`,
       {
         versions: [],
         updates: [],
@@ -149,19 +149,17 @@ export class ClientService {
   shareData(newValue: any): void {
     this.profil.next(newValue);
   }
-  GetVersion(client: IClient, link?: string): Observable<any> {
+  GetVersion(client: IClient): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
-    const linkUser: string | undefined = link !== undefined ? link : '';
     const uid: string = client.client_product?.uidProduct === undefined ? ' ' : client.client_product?.uidProduct?.toString();
-    return this.http.get<any>(`${linkUser}/api/v1/product/${uid}`, { headers: { authorization: token } });
+    return this.http.get<any>(`${this.link}/api/v1/product/${uid}`, { headers: { authorization: token } });
   }
-  createV0ADN(client: IClient, link?: string): Observable<any> {
+  createV0ADN(client: IClient): Observable<any> {
     console.log('addVersionApplicable');
-    const linkUser: string | undefined = link !== undefined ? link : '';
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     const nameVersion = client?.productClient?.concat('_ActimuxIndexV0');
     return this.http.post<any>(
-      `${linkUser}/api/v1/version/`,
+      `${this.link}/api/v1/version/`,
       { name: nameVersion, comment: client.comment, description: client.description, productUid: client.client_product?.uidProduct },
       { headers: { authorization: token } }
     );
@@ -191,12 +189,10 @@ export class ClientService {
       { headers: { authorization: `Bearer ${token}` } }
     );
   }
-  createVersion2(client: IClient, newVersion?: string, link?: string): Observable<any> {
+  createVersion2(client: IClient, newVersion?: string): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
-    const linkUser: string | undefined = link !== undefined ? link : '';
-    console.log(linkUser);
     return this.http.post<any>(
-      `${linkUser}/api/v1/version/`,
+      `${this.link}/api/v1/version/`,
       { name: newVersion, comment: client.comment, description: client.description, productUid: client.client_product?.uidProduct },
       { headers: { authorization: token } }
     );
@@ -316,13 +312,12 @@ export class ClientService {
     uidCible?: string | null,
     nameVersionApplicable?: string | null,
     nameVersionCible?: string | null,
-    name?: string | null,
-    link?: string
+    name?: string | null
   ): Observable<any> {
     console.log('createUpload');
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     return this.http.post<any>(
-      `${link}/api/v1/update/`,
+      `${this.link}/api/v1/update/`,
       {
         titles: {},
         descriptions: {},
@@ -420,20 +415,19 @@ export class ClientService {
       headers: { authorization: `Bearer ${token}` },
     });
   }
-  getUpdate(client: IClient, link?: string): Observable<any> {
-    const linkUser: string | undefined = link !== undefined ? link : '';
+  getUpdate(client: IClient): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
-    return this.http.get(`${linkUser}/api/v1/update/${uidClient}`, { headers: { authorization: token } });
+    return this.http.get(`${this.link}/api/v1/update/${uidClient}`, { headers: { authorization: token } });
   }
-  EditStatut(client: IClient, link: string | undefined): Observable<any> {
+  EditStatut(client: IClient): Observable<any> {
     const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
     // console.log("*****");
     const uidClient: string | null = client.uidClient !== undefined ? client.uidClient : '';
     //console.error('test uiid0 ',uiUpdate);
-    const linkUser: string | undefined = link !== undefined ? link : '';
+
     return this.http.patch<any>(
-      `${linkUser}/api/v1/update/${uidClient}`,
+      `${this.link}/api/v1/update/${uidClient}`,
       {},
       { headers: { authorization: token }, responseType: 'text' as 'json' }
     );
@@ -492,5 +486,48 @@ export class ClientService {
       },
       { headers: { authorization: `Bearer ${token}` } }
     );
+  }
+  profilUser(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/account', { headers: { authorization: `Bearer ${token}` } });
+  }
+  getLink(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.get<any>('http://localhost:8080/api/links', { headers: { authorization: `Bearer ${token}` } });
+  }
+  linkUser(): void {
+    this.profilUser().subscribe(profilUser => {
+      this.profilUsr = profilUser;
+    });
+    this.getLink().subscribe(links => {
+      this.links = links;
+      for (const link of this.links) {
+        console.log(link);
+        if (this.profilUsr.id === link.user.id) {
+          this.link = link.nameLink;
+          console.log(link.nameLink);
+        }
+      }
+    });
+  }
+  deleteVersionApplicable(id: number): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.delete<any>(`http://localhost:8080/api/version-applicables/${id}`, { headers: { authorization: `Bearer ${token}` } });
+  }
+  deleteVersionCible(id: number): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('authenticationToken'))}`;
+    return this.http.delete<any>(`http://localhost:8080/api/version-cibles/${id}`, { headers: { authorization: `Bearer ${token}` } });
+  }
+  getVersionADN(): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    return this.http.get<any>(`${this.link}/api/v1/product/iPo2SipwLw`, { headers: { authorization: token } });
+  }
+  deleteVersionADN(id: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    return this.http.delete<any>(`${this.link}/api/v1/version/${id}`, { headers: { authorization: token } });
+  }
+  deleteUpdateADN(id: string): Observable<any> {
+    const token: string | null = `${String(localStorage.getItem('PlatformAPIToken'))}`;
+    return this.http.delete<any>(`${this.link}/api/v1/update/${id}`, { headers: { authorization: token } });
   }
 }

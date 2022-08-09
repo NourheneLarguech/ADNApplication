@@ -76,7 +76,7 @@ export class EditVersionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.linkUser();
+    this.clientService.linkUser();
     this.activatedRoute.data.subscribe(({ client }) => {
       this.updateForm(client);
 
@@ -93,20 +93,6 @@ export class EditVersionComponent implements OnInit {
           });
         });
       });
-    });
-  }
-  linkUser(): void {
-    this.clientService.profilUser().subscribe(profilUser => {
-      this.profilUser = profilUser;
-    });
-    this.clientService.getLink().subscribe(links => {
-      this.links = links;
-      for (const link of this.links) {
-        if (this.profilUser.id === link.user.id) {
-          this.link = link.nameLink;
-          //  console.log(link.nameLink);
-        }
-      }
     });
   }
 
@@ -183,7 +169,7 @@ export class EditVersionComponent implements OnInit {
     if (client.versionApplicable === null) {
       this.newVersion = this.convertirVersion(client?.productClient);
 
-      this.clientService.createVersion2(client, this.newVersion, this.link).subscribe(version => {
+      this.clientService.createVersion2(client, this.newVersion).subscribe(version => {
         console.log(this.link);
         this.clientService.createVersionApplicable(client, this.todayString, version.createdBy).subscribe(ResVersApplicable => {
           // console.log(ResVersApplicable);
@@ -197,7 +183,7 @@ export class EditVersionComponent implements OnInit {
             this.name = this.functionNameVersion(client.nameClient, version.name);
             // console.log(this.functionNameVersion(client.nameClient, version.name));
             this.clientService
-              .createUpdateADN(client, client.uidClient, version.uid, client.nameClient, version.name, this.name, this.link)
+              .createUpdateADN(client, client.uidClient, version.uid, client.nameClient, version.name, this.name)
               .subscribe(resUpdate => {
                 // console.log(resUpdate);
                 this.clientService
@@ -224,7 +210,7 @@ export class EditVersionComponent implements OnInit {
         this.va = va;
       });
       this.newVersion = this.convertirVersion2(client.versionCible?.nameVersionCible);
-      this.clientService.createVersion2(client, this.newVersion, this.link).subscribe(version => {
+      this.clientService.createVersion2(client, this.newVersion).subscribe(version => {
         //console.log(version);
 
         this.clientService
@@ -241,8 +227,7 @@ export class EditVersionComponent implements OnInit {
                 version.uid,
                 client.versionCible?.nameVersionCible,
                 version.name,
-                this.name,
-                this.link
+                this.name
               )
               .subscribe(resUpdate => {
                 // console.log(resUpdate);
@@ -267,7 +252,7 @@ export class EditVersionComponent implements OnInit {
       });
     }
 
-    this.clientService.GetVersion(client, this.link).subscribe(data => {
+    this.clientService.GetVersion(client).subscribe(data => {
       // this.versionName=data;
       let i = 0;
       while (data.versions[i].name !== undefined) {
